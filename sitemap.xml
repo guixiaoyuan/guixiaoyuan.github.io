@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://guixiaoyuan.github.io/post/second/</loc>
-    <lastmod>2017-07-18T14:52:55+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://guixiaoyuan.github.io/post/first/</loc>
-    <lastmod>2017-05-17T19:22:31+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://guixiaoyuan.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://guixiaoyuan.github.io/post/</loc>
-    <lastmod>2017-07-18T14:52:55+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://guixiaoyuan.github.io/about/</loc>
+    <lastmod>2017-07-10T15:33:51+08:00</lastmod>
   </url>
   
   <url>
@@ -28,8 +13,13 @@
   </url>
   
   <url>
+    <loc>https://guixiaoyuan.github.io/topics/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/</loc>
-    <lastmod>2017-07-18T14:52:55+08:00</lastmod>
+    <lastmod>2017-07-10T15:33:51+08:00</lastmod>
     <priority>0</priority>
   </url>
   
