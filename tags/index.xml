@@ -9,5 +9,50 @@
     <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
     <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
     
+    <item>
+      <title>博客</title>
+      <link>https://guixiaoyuan.github.io/tags/%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Sun, 20 Aug 2017 00:30:03 CST</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/%E5%8D%9A%E5%AE%A2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>学习</title>
+      <link>https://guixiaoyuan.github.io/tags/%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Sun, 20 Aug 2017 00:30:03 CST</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>教程</title>
+      <link>https://guixiaoyuan.github.io/tags/%E6%95%99%E7%A8%8B/</link>
+      <pubDate>Sun, 20 Aug 2017 00:30:03 CST</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/%E6%95%99%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>网站</title>
+      <link>https://guixiaoyuan.github.io/tags/%E7%BD%91%E7%AB%99/</link>
+      <pubDate>Sun, 20 Aug 2017 00:30:03 CST</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/%E7%BD%91%E7%AB%99/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>静态网站生成器</title>
+      <link>https://guixiaoyuan.github.io/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E7%94%9F%E6%88%90%E5%99%A8/</link>
+      <pubDate>Sun, 20 Aug 2017 00:30:03 CST</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E7%94%9F%E6%88%90%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
