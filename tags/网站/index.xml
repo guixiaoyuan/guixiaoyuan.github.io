@@ -17,13 +17,11 @@
       <guid>https://guixiaoyuan.github.io/post/2017-08-20/</guid>
       <description>
 
-&lt;h1 id=&#34;存在的原因&#34;&gt;存在的原因&lt;/h1&gt;
-
 &lt;p&gt;欢迎来到桂圆的第二人生。&lt;/p&gt;
 
 &lt;p&gt;这是我的第一篇博文。万事开头难，不过凡事要具体了的话，就会很深入，深入的话就会迎刃而解。&lt;/p&gt;
 
-&lt;h4 id=&#34;写博客的目的&#34;&gt;写博客的目的&lt;/h4&gt;
+&lt;h2 id=&#34;写博客的目的&#34;&gt;写博客的目的&lt;/h2&gt;
 
 &lt;p&gt;知识管理。并且多思考，把自己思考的过程展现给大家。&lt;/p&gt;
 
@@ -38,24 +36,29 @@
 &lt;a href=&#34;http://www.jianshu.com/p/dbdac17eb9ff&#34;&gt;个人知识管理的方法&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;作为一个程序员来说，IT技术更新速度迭代快，也就是意味着我们需要不断的去学习，才能不被淘汰。所以知识变成体系才格外重要。体系的管理自己的知识会让我们：
-* 更有效地学习新的知识。
-* 更好地掌握知识。
-* 节约时间成本。&lt;/p&gt;
+&lt;p&gt;作为一个程序员来说，IT技术更新速度迭代快，也就是意味着我们需要不断的去学习，才能不被淘汰。所以知识变成体系才格外重要。体系的管理自己的知识会让我们：&lt;/p&gt;
 
-&lt;p&gt;而我自己管理知识的方法总结一下就是：
-* 知识积累，使用文档管理工具，比如有道云笔记，Evernote等等。
-* 碎片整理，将第一步的内容初步消化。
-* 深度加工，将第二步的内容以思考的方式写成博客。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;更有效地学习新的知识。&lt;/li&gt;
+&lt;li&gt;更好地掌握知识。&lt;/li&gt;
+&lt;li&gt;节约时间成本。&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;gt;为什么推崇写博客为深度加工思考。给大家推荐两个不错的文章。
+&lt;p&gt;而我自己管理知识的方法总结一下就是：&lt;/p&gt;
 
-&amp;gt;[为什么你现在就应该开始写博客](http://mindhacks.cn/2009/02/15/why-you-should-start-blogging-now/)
+&lt;ul&gt;
+&lt;li&gt;知识积累，使用文档管理工具，比如有道云笔记，Evernote等等。&lt;/li&gt;
+&lt;li&gt;碎片整理，将第一步的内容初步消化。&lt;/li&gt;
+&lt;li&gt;深度加工，将第二步的内容以思考的方式写成博客。&lt;/li&gt;
+&lt;/ul&gt;
 
-&amp;gt;[书写是为了更好的思考](http://mindhacks.cn/2009/02/09/writing-is-better-thinking/)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;为什么推崇写博客为深度加工思考。给大家推荐两个不错的文章。&lt;/p&gt;
 
-&lt;h4 id=&#34;怎么写博客&#34;&gt;怎么写博客？&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;http://mindhacks.cn/2009/02/15/why-you-should-start-blogging-now/&#34;&gt;为什么你现在就应该开始写博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://mindhacks.cn/2009/02/09/writing-is-better-thinking/&#34;&gt;书写是为了更好的思考&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;怎么写博客&#34;&gt;怎么写博客？&lt;/h2&gt;
 
 &lt;p&gt;明白为什么写博客的原因之后，就是去做了。理论有了之后，实践并不是一间很难的事情。&lt;/p&gt;
 
@@ -71,13 +74,14 @@
 
 &lt;p&gt;好好的去营造属于你自己的第二人生吧。&lt;/p&gt;
 
-&lt;h4 id=&#34;彩蛋&#34;&gt;彩蛋&lt;/h4&gt;
+&lt;h2 id=&#34;彩蛋&#34;&gt;彩蛋&lt;/h2&gt;
 
 &lt;p&gt;当然你看到这里，不给你一点福利好像说不过去。这次的福利对听音乐的来说，可是一个爆炸性的消息。&lt;/p&gt;
 
 &lt;p&gt;作为一个程序员来说，听着音乐敲着代码，可谓是人生一大乐事之一。但是国内版权的原因，导致了很多歌在不同的平台独家授权。个人比较喜欢用网易云音乐。可是在网易我听不到五月天，李宗盛，以及滚石唱片的所有。最近又下架了一大批歌曲。而且由于上述公司都是阿里旗下的产业，所以即使网易刚刚融到了7个亿，也不可能拿到这个版权。而韩文歌的版权也基本上被qq拿到。&lt;/p&gt;
 
-&lt;p&gt;所以，这个时候，一个全平台都能听的的音乐程序呼之欲出。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;所以，这个时候，一个全平台都能听的的音乐程序呼之欲出。
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://listen1.github.io/listen1/&#34;&gt;Listen 1&lt;/a&gt;&lt;/p&gt;
 
