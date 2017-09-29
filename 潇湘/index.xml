@@ -15,9 +15,7 @@
       <pubDate>Sat, 26 Aug 2017 00:00:00 UTC</pubDate>
       <author>Xiaoyuan Gui</author>
       <guid>https://guixiaoyuan.github.io/post/2017-08-26/</guid>
-      <description>
-
-&lt;p&gt;项目场景：&lt;/p&gt;
+      <description>&lt;p&gt;项目场景：&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;紧急发现了一个bug，影响用户体验，阻断项目流程。这个时候，只能紧急发布一个强制更新的新版本，让用户升级。&lt;/li&gt;
@@ -28,6 +26,8 @@
 
 &lt;pre&gt;&lt;code&gt;可不可以不让用户重新安装就可以解决上述场景？
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;什么是热更新&#34;&gt;什么是热更新：&lt;/h3&gt;
 
@@ -372,8 +372,7 @@ tinkerPatch {
         -keep public class com.tencent.bugly.**{*;}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;hr /&gt;
-</description>
+&lt;hr /&gt;</description>
     </item>
     
   </channel>
