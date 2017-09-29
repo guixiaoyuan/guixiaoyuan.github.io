@@ -7,7 +7,16 @@
     <language>en-us</language>
     <author>Xiaoyuan Gui</author>
     <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
-    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
+    <updated>Sat, 26 Aug 2017 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Android</title>
+      <link>https://guixiaoyuan.github.io/tags/android/</link>
+      <pubDate>Sat, 26 Aug 2017 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/android/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>博客</title>
@@ -33,6 +42,15 @@
       <pubDate>Sun, 20 Aug 2017 00:30:03 CST</pubDate>
       <author>Xiaoyuan Gui</author>
       <guid>https://guixiaoyuan.github.io/tags/%E6%95%99%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>热更新</title>
+      <link>https://guixiaoyuan.github.io/tags/%E7%83%AD%E6%9B%B4%E6%96%B0/</link>
+      <pubDate>Sat, 26 Aug 2017 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/%E7%83%AD%E6%9B%B4%E6%96%B0/</guid>
       <description></description>
     </item>
     
