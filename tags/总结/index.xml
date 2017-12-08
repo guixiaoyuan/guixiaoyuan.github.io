@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>总结 on 桂圆的第二人生 </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://guixiaoyuan.github.io/tags/%E6%80%BB%E7%BB%93/</link>
+    <language>en-us</language>
+    <author>Xiaoyuan Gui</author>
+    <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
+    <updated>Thu, 21 Sep 2017 00:00:00 UTC</updated>
+    
+    <item>
+      <title>关于String的一点知识</title>
+      <link>https://guixiaoyuan.github.io/post/2017-09-21/</link>
+      <pubDate>Thu, 21 Sep 2017 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2017-09-21/</guid>
+      <description>&lt;p&gt;相信大部分准备过java面试的同学都知道Java中的String是final修饰,不可变的。可是只知道是什么，不知道为什么是一件非常危险的事情。因为任何事情都没有绝对。&lt;/p&gt;
+
+&lt;p&gt;我们先看看什么是不可变对象。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;什么是不可变对象&#34;&gt;什么是不可变对象？&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;如果一个对象，在创建完成之后，不能在改变他的状态。（包括内部成员变量，基本数据类型。引用类型的变量不能指向其他对象，引用类型指向的对象的状态）对象则认为不可改变。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;关于Java中的String不可变的原因，具体可以参考下面这篇文章。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.csdn.net/zhangjg_blog/article/details/18319521&#34;&gt;Java中的String不可变的原因&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;文中源码一直分析到了1.7，但是1.8之后，String源码又改动。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public final class String
+    implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence {
+
+    // The associated character storage is managed by the runtime. We only
+    // keep track of the length here.
+    //
+    // private final char value[];
+    private final int count;
+
+    /** Cache the hash code for the string */
+    private int hash; // Default to 0
+    ....
+   }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注释中我们可以看到，已经把字符存储放到runtime里面去了。而且内部修改字符串，也不再是简单的new String出来。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public String replace(char oldChar, char newChar) {
+    String replaced = this;
+    if (oldChar != newChar) {
+        for (int i = 0; i &amp;lt; count; ++i) {
+            if (charAt(i) == oldChar) {
+                if (replaced == this) {
+                    replaced = StringFactory.newStringFromString(this);
+                }
+                replaced.setCharAt(i, newChar);
+            }
+        }
+    }
+    return replaced;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;采用了StringFactory.newStringFromString(),这个是native方法。上述文章中提到了利用反射修改不可访问的value，从而使不可变String，变成可变String。貌似在1.8中已经被封杀了。&lt;/p&gt;
+
+&lt;h3 id=&#34;string类不可变的好处&#34;&gt;String类不可变的好处：&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;字符串池实现的前提。在运行时节约heap空间。不同字符串变量都指向同一个字符串。&lt;/li&gt;
+&lt;li&gt;保障安全。直接影响：账号，密码等都以字符串的形式传递；隐形影响：HashSet，存储String内容，如果可变，破坏键值的唯一性。&lt;/li&gt;
+&lt;li&gt;多线程安全。&lt;/li&gt;
+&lt;li&gt;缓存Hashcode，高效。String不可变，hashcode就是一个定值。不需要重新计算，所以作为map中的键，处理速度会更快。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

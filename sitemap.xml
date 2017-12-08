@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://guixiaoyuan.github.io/post/2017-09-21/</loc>
+    <lastmod>2017-09-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/post/2017-08-26/</loc>
     <lastmod>2017-08-26T00:00:00+00:00</lastmod>
   </url>
@@ -20,6 +25,12 @@
   <url>
     <loc>https://guixiaoyuan.github.io/tags/android/</loc>
     <lastmod>2017-08-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guixiaoyuan.github.io/tags/java/</loc>
+    <lastmod>2017-09-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -47,6 +58,12 @@
   </url>
   
   <url>
+    <loc>https://guixiaoyuan.github.io/tags/%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2017-09-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/tags/%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2017-08-20T00:30:03+08:00</lastmod>
     <priority>0</priority>
@@ -54,13 +71,13 @@
   
   <url>
     <loc>https://guixiaoyuan.github.io/</loc>
-    <lastmod>2017-08-26T00:00:00+00:00</lastmod>
+    <lastmod>2017-09-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://guixiaoyuan.github.io/%E6%BD%87%E6%B9%98/</loc>
-    <lastmod>2017-08-26T00:00:00+00:00</lastmod>
+    <lastmod>2017-09-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

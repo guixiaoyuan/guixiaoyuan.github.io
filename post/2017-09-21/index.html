@@ -10,31 +10,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="keywords" content="">
+<meta name="keywords" content="Java, 总结, ">
 
  
 <meta property="og:type" content="article"/>
 <meta property="og:description" content=""/>
-<meta property="og:title" content="潇湘s : 桂圆的第二人生"/>
+<meta property="og:title" content="关于String的一点知识 : 桂圆的第二人生"/>
 <meta property="og:site_name" content="xiaoyuan gui blog"/>
 <meta property="og:image" content="" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="" />
 <meta property="og:image:height" content="" />
-<meta property="og:url" content="https://guixiaoyuan.github.io/%E6%BD%87%E6%B9%98/">
+<meta property="og:url" content="https://guixiaoyuan.github.io/post/2017-09-21/">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2017-09-21"/>
 <meta property="article:modified_time" content="2017-09-21"/>
 
 
 
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="总结">
+
+
 
 
 
     <base href="https://guixiaoyuan.github.io/">
-    <title> 潇湘s - 桂圆的第二人生 </title>
-    <link rel="canonical" href="https://guixiaoyuan.github.io/%E6%BD%87%E6%B9%98/">
-    <link href="https://guixiaoyuan.github.io/%E6%BD%87%E6%B9%98/index.xml" rel="alternate" type="application/rss+xml" title="潇湘s" />
+    <title> 关于String的一点知识 - 桂圆的第二人生 </title>
+    <link rel="canonical" href="https://guixiaoyuan.github.io/post/2017-09-21/">
+    
 
     
 <link rel="stylesheet" href="/static/css/style.css">
@@ -53,7 +57,7 @@
 
 </head>
 
-<body lang="en">
+<body lang="en" itemscope itemtype="http://schema.org/Article">
 <header id="header">
 	<nav id="nav">
 	<div id="title"><a href="/">桂圆的第二人生</a></div>
@@ -125,33 +129,126 @@
 </header>
 
 
+
 <section id="main">
+  <h1 itemprop="name" >关于String的一点知识</h1>
+  
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Thu Sep 21, 2017 </h4>
+          
+        </section>
+        
+        <ul id="tags">
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/java">Java</a> </li>
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/%E6%80%BB%E7%BB%93">总结</a> </li>
+          
+        </ul>
+    </div>
+
+
+</aside>
+
+<meta itemprop="wordCount" content="119">
+<meta itemprop="datePublished" content="2017-09-21">
+<meta itemprop="url" content="https://guixiaoyuan.github.io/post/2017-09-21/">
+
+
   <div>
-   <h1 id="title">s潇湘s</h1>
-            
-            <h2>2017</h3>
-                <ul id="list">
-                    
-                            <li>
-    <a href="https://guixiaoyuan.github.io/post/2017-09-21/">关于String的一点知识 </a>
-      <div class="meta">Thu, Sep 21, 2017</div>
-    </li>
+        <article itemprop="articleBody" id="content">
+           <p>相信大部分准备过java面试的同学都知道Java中的String是final修饰,不可变的。可是只知道是什么，不知道为什么是一件非常危险的事情。因为任何事情都没有绝对。</p>
 
+<p>我们先看看什么是不可变对象。</p>
 
-                    
-                            <li>
-    <a href="https://guixiaoyuan.github.io/post/2017-08-26/">Android热更新 </a>
-      <div class="meta">Sat, Aug 26, 2017</div>
-    </li>
+<p></p>
 
+<h3 id="什么是不可变对象">什么是不可变对象？</h3>
 
-                    
-                </ul>
-            
+<pre><code>如果一个对象，在创建完成之后，不能在改变他的状态。（包括内部成员变量，基本数据类型。引用类型的变量不能指向其他对象，引用类型指向的对象的状态）对象则认为不可改变。
+</code></pre>
+
+<p>关于Java中的String不可变的原因，具体可以参考下面这篇文章。</p>
+
+<p><a href="http://blog.csdn.net/zhangjg_blog/article/details/18319521">Java中的String不可变的原因</a></p>
+
+<p>文中源码一直分析到了1.7，但是1.8之后，String源码又改动。</p>
+
+<pre><code>public final class String
+    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence {
+
+    // The associated character storage is managed by the runtime. We only
+    // keep track of the length here.
+    //
+    // private final char value[];
+    private final int count;
+
+    /** Cache the hash code for the string */
+    private int hash; // Default to 0
+    ....
+   }
+</code></pre>
+
+<p>注释中我们可以看到，已经把字符存储放到runtime里面去了。而且内部修改字符串，也不再是简单的new String出来。</p>
+
+<pre><code>public String replace(char oldChar, char newChar) {
+    String replaced = this;
+    if (oldChar != newChar) {
+        for (int i = 0; i &lt; count; ++i) {
+            if (charAt(i) == oldChar) {
+                if (replaced == this) {
+                    replaced = StringFactory.newStringFromString(this);
+                }
+                replaced.setCharAt(i, newChar);
+            }
+        }
+    }
+    return replaced;
+}
+</code></pre>
+
+<p>采用了StringFactory.newStringFromString(),这个是native方法。上述文章中提到了利用反射修改不可访问的value，从而使不可变String，变成可变String。貌似在1.8中已经被封杀了。</p>
+
+<h3 id="string类不可变的好处">String类不可变的好处：</h3>
+
+<ul>
+<li>字符串池实现的前提。在运行时节约heap空间。不同字符串变量都指向同一个字符串。</li>
+<li>保障安全。直接影响：账号，密码等都以字符串的形式传递；隐形影响：HashSet，存储String内容，如果可变，破坏键值的唯一性。</li>
+<li>多线程安全。</li>
+<li>缓存Hashcode，高效。String不可变，hashcode就是一个定值。不需要重新计算，所以作为map中的键，处理速度会更快。</li>
+</ul>
+        </article>
   </div>
 </section>
 
-<aside id="meta"> </aside>
+<aside id=comments>
+    <div><h2> Comments </h2></div>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "guixiaoyuan" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
 <footer>
   <div>
     <p>
@@ -185,3 +282,22 @@ fitText(document.getElementById('title'), 1)
 </body>
 </html>
 
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</body>
