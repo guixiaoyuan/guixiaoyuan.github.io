@@ -23,6 +23,11 @@
   </url>
   
   <url>
+    <loc>https://guixiaoyuan.github.io/post/2016-03-02/</loc>
+    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/tags/android/</loc>
     <lastmod>2017-08-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -42,6 +47,12 @@
   
   <url>
     <loc>https://guixiaoyuan.github.io/topics/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guixiaoyuan.github.io/tags/view/</loc>
+    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -96,6 +107,12 @@
   <url>
     <loc>https://guixiaoyuan.github.io/%E8%98%85%E8%8A%9C/</loc>
     <lastmod>2017-08-20T00:30:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guixiaoyuan.github.io/tags/%E8%A7%A6%E6%91%B8%E6%9C%BA%E5%88%B6/</loc>
+    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

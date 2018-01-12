@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="Android, view, 触摸机制, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="Android 触摸机制 : 桂圆的第二人生"/>
+<meta property="og:site_name" content="xiaoyuan gui blog"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="https://guixiaoyuan.github.io/post/2016-03-02/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-03-02"/>
+<meta property="article:modified_time" content="2016-03-02"/>
+
+
+
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="view">
+<meta property="article:tag" content="触摸机制">
+
+
+
+
+
+    <base href="https://guixiaoyuan.github.io/">
+    <title> Android 触摸机制 - 桂圆的第二人生 </title>
+    <link rel="canonical" href="https://guixiaoyuan.github.io/post/2016-03-02/">
+    
+
+    
+<link rel="stylesheet" href="/static/css/style.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?a79535ca63291dc820e3ecefa615aad1";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+</head>
+
+<body lang="en" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+	<nav id="nav">
+	<div id="title"><a href="/">桂圆的第二人生</a></div>
+    <div><a href=mailto: 463316523@qq.com target="_blank" class="mailto"> </span> <span class="icon-mail"></span>463316523@qq.com</a></div>
+	</nav>
+    <nav id="nav">
+    	        <ul id="mainnav">
+            <li>
+                <a href="/蘅芜/">
+                <span class="icon"> <i aria-hidden="true" class="icon-pencil"></i></span>
+                <span> 蘅芜 </span>
+            </a>
+            </li>
+            <li>
+            <a href="/潇湘/">
+                <span class="icon"> <i aria-hidden="true" class="icon-quill"></i></span>
+                <span> 潇湘 </span>
+            </a>
+            </li>
+            <li>
+            <a href="/观叹/">
+                <span class="icon"> <i aria-hidden="true" class="icon-leaf"></i></span>
+                <span> 观叹 </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="icon-heart"></i></span>
+                <span> 关于 </span>
+            </a>
+            </li>
+        </ul>
+
+    </nav>
+    <nav id="nav">
+       	        <ul id="social">
+            
+            <li id="share">
+                <span class="title"> 友链 </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      
+                      <li> <a href="http://spf13.com" target="_blank" title="spf13 is Steve Francis" class="facebook">spf13</a> </li>
+                      <li> <a href="http://libaier.net" target="_blank" title="Libaier" class="rss">Libaier</a> </li>
+                      <li> <a href="http://www.androidweekly.cn/" target="_blank" title="Android开发周报" class="douban">Android 开发周报</a></li>
+                      <li> <a href="http://androidblog.cn/" target="_blank" title="Android blog周刊" class="yangzhe">Android blog周刊</a></li>
+                      <li> <a href="http://http://tianwang.gift/" target="_blank" title="Tian" class="tian">Tian</a></li>
+                    </ul>
+                <span class="icon icon-bubbles"> </span> <span class="subcount"></span> </div>
+            </li>
+    
+            <li id="follow">
+                <span class="title"> 驻留地 </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        
+
+                        <li> <a href="http://weibo.com/2975201462/profile?topnav=1&wvr=6" target="_blank" title="微博" class="weibo">微博</a> </li>
+                        <li> <a href="https://www.zhihu.com/people/gui-xiao-yuan" target="_blank" title="知乎" class="zhihu">知乎</a> </li>
+                        <li> <a href="https://github.com/guixiaoyuan" target="_blank" title="GitHub" class="github">GitHub</a> </li>                         
+                        
+                    </ul>
+                <span class="icon icon-rocket"> </span> <span class="subcount"></span> </div>
+            </li>
+
+        </ul>
+
+	</nav>
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" >Android 触摸机制</h1>
+  
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Wed Mar 2, 2016 </h4>
+          
+        </section>
+        
+        <ul id="tags">
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/android">Android</a> </li>
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/view">view</a> </li>
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/%E8%A7%A6%E6%91%B8%E6%9C%BA%E5%88%B6">触摸机制</a> </li>
+          
+        </ul>
+    </div>
+
+
+</aside>
+
+<meta itemprop="wordCount" content="107">
+<meta itemprop="datePublished" content="2016-03-02">
+<meta itemprop="url" content="https://guixiaoyuan.github.io/post/2016-03-02/">
+
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           <p>android开发，涉及到自定义view的时机会非常的多，完成一个非常优质的view，view必须和用户又一个非常良好的交互。view的事件处理就是一个很重要的环节。</p>
+
+<p>本文是对view有一定基础的总结。
+</p>
+
+<h1 id="android-触摸机制">Android 触摸机制</h1>
+
+<p>在理解事件处理机制之前，我们先理解一下，view和viewGroup的异同。</p>
+
+<h3 id="view">view</h3>
+
+<p>view 在官方文档上是这么写的：This class represents the basic building block for user interface components.也就是说这个类代表用户界面组件的基本构建块。所有在ui界面上看到的东西本质上都是view.或者是从View继承过来的。</p>
+
+<p>比如常见的控件，textview，button，都是继承view。</p>
+
+<h3 id="viewgroup">viewGroup</h3>
+
+<p>ViewGroup在官方文档上是这么写的：The ViewGroup subclass is the base class for layouts, which are invisible containers that hold other Views (or other ViewGroups) and define their layout properties.简单来说，viewGroup就是布局。而布局我们最常见的也就是linearLayout，RealtiveLayout,FrameLayout等等。</p>
+
+<pre><code>从类结构，层级上来看,view 是包含 textview，viewGroup的。
+
+view是根，其他的都是衍生出来的
+</code></pre>
+
+<pre><code>从界面的包含关系上来看,viewGroup 是包含 view，viewGroup的
+
+viewGroup是根，其他的都是附加在viewGroup上的
+</code></pre>
+
+<p>理解之后，我们从操作上知道，当我们的手，去触摸屏幕的时候，界面会随着我们的操作而进行不同的交互。</p>
+
+<p>触摸的时候，就是一个touch事件处理的过程。</p>
+
+<h3 id="touch事件">touch事件</h3>
+
+<p>Touch事件分发中只有两个主角:ViewGroup和View。Activity的Touch事件事实上是调用它内部的ViewGroup的Touch事件，可以直接当成ViewGroup处理。</p>
+
+<p>简单的了解一下Android 处理触摸事件主要涉及到几个方法：</p>
+
+<pre><code>onInterceptTouchEvent(),（只有viewGroup有）
+
+dipatchTouchEvent(), onTouchEvent(), onTouch()。
+view和viewGroup都有
+</code></pre>
+
+<p>onInterceptTouchEvent（）从字面上看都是拦截用的。
+dipatchTouchEvent（） 是分发。
+onTouchEvent(), onTouch() 是处理触摸的。</p>
+
+<p>通过上面我们知道，view是没有拦截方法的，也就是它没有办法往下传递。所以就没有中断接受的概念。</p>
+
+<p>其实在view中，dispatchTouchEvent（）没什么意思。因为，它分发这个事件，其实就是给自己处理。</p>
+
+<pre><code>所以，一般情况下，我们不该在普通View内重写
+dispatchTouchEvent方法，因为它并不执行分发逻辑。
+当Touch事件到达View时，我们该做的就是是否在
+onTouchEvent事件中处理它。
+</code></pre>
+
+<h3 id="触摸事件具体调用顺序">触摸事件具体调用顺序</h3>
+
+<p>默认情况下，我们的动作都是从最外层传递到最里层的，一般简单的来说，也就是从ViewGroup到view。而实际处理，则是从最里层开始，一层层到外层。也就是view到ViewGroup。</p>
+
+<p>首先会调用最外层的dispatchTouchEvent()，其实这个方法就是分发事件，返回false，表示此层不接受这个动作，继续发送给下层。如果是true，则不传递动作给下面了。如果是viewGroup的话，接下来会调用onInterceptTouchEvent(),此方法用于拦截动作，返回true，拦截成功，false，不拦截。</p>
+
+<p>动作传递到下一层之后，会继续重复上面的动作。直到传递到最里层，也就是上图的叶子节点。这个时候，会调用onTouchEvent事件。如果返回false，表示继续往上传递，会调用上层的onTouchEvent()的事件，重复一直到执行到最上层。也就是上图的根节点。</p>
+
+<p>在这里有一件事情要注意，也就是，只有当viewGroup里面的所有子控件返回的都是false，才会执行viewGroup的onTouchEvent（）。</p>
+
+<p>在目前的情况看来， 似乎只要我们把所有的onTouchEvent都返回false，就能保证所有的子控件都响应本次Touch事件了。但必须要说明的是，这里的Touch 事件，只限于Acition_Down事件，即触摸按下事件,而Aciton_UP和Action_MOVE却不会执行。事实上，一次完整的Touch事 件，应该是由一个Down、一个Up和若干个Move组成的。Down方式通过dispatchTouchEvent分发，分发的目的是为了找到真正需要 处理完整Touch请求的View。当某个View或者ViewGroup的onTouchEvent事件返回true时，便表示它是真正要处理这次请求 的View，之后的Aciton_UP和Action_MOVE将由它处理。当所有子View的onTouchEvent都返回false时，这次的 Touch请求就由根ViewGroup，即Activity自己处理了。</p>
+
+<h3 id="总结一下">总结一下</h3>
+
+<ul>
+<li><p>Touch 事件分发中只有两个主角:ViewGroup和View。ViewGroup包含onInterceptTouchEvent、 dispatchTouchEvent、onTouchEvent三个相关事件。View包含dispatchTouchEvent、 onTouchEvent两个相关事件。其中ViewGroup又继承于View。</p></li>
+
+<li><p>ViewGroup和View组成了一个树状结构，根节点为Activity内部包含的一个ViwGroup。</p></li>
+
+<li><p>触摸事件由Action_Down、Action_Move、Aciton_UP组成，其中一次完整的触摸事件中，Down和Up都只有一个，Move有若干个，可以为0个。</p></li>
+
+<li><p>当Acitivty接收到Touch事件时，将遍历子View进行Down事件的分发。ViewGroup的遍历可以看成是递归的。分发的目的是为了找到真正要处理本次完整触摸事件的View，这个View会在onTouchuEvent结果返回true。</p></li>
+
+<li><p>当某个子 View返回true时，会中止Down事件的分发，同时在ViewGroup中记录该子View。接下去的Move和Up事件将由该子View直接进行 处理。由于子View是保存在ViewGroup中的，多层ViewGroup的节点结构时，上级ViewGroup保存的会是真实处理事件的View所 在的ViewGroup对象:如ViewGroup0-ViewGroup1-TextView的结构中，TextView返回了true，它将被保存在 ViewGroup1中，而ViewGroup1也会返回true，被保存在ViewGroup0中。当Move和UP事件来时，会先从 ViewGroup0传递至ViewGroup1，再由ViewGroup1传递至TextView。</p></li>
+
+<li><p>当 ViewGroup中所有子View都不捕获Down事件时，将触发ViewGroup自身的onTouch事件。触发的方式是调用 super.dispatchTouchEvent函数，即父类View的dispatchTouchEvent方法。在所有子View都不处理的情况 下，触发Acitivity的onTouchEvent方法。</p></li>
+
+<li><p>onInterceptTouchEvent有两个作用：1.拦截Down事件的分发。2.中止Up和Move事件向目标View传递，使得目标View所在的ViewGroup捕获Up和Move事件。</p></li>
+</ul>
+        </article>
+  </div>
+</section>
+
+<aside id=comments>
+    <div><h2> Comments </h2></div>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "guixiaoyuan" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+<footer>
+  <div>
+    <p>
+    &copy; 2017 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Xiaoyuan Gui.</span></span>
+        Powered by <a href="http://hugo.spf13.com">Hugo</a>.
+        Theme by <a href="http://spf13.com">Steve Francia</a>.
+    </p>
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i &lt; all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</body>

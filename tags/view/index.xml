@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>View on 桂圆的第二人生 </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://guixiaoyuan.github.io/tags/view/</link>
+    <language>en-us</language>
+    <author>Xiaoyuan Gui</author>
+    <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
+    <updated>Wed, 02 Mar 2016 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Android 触摸机制</title>
+      <link>https://guixiaoyuan.github.io/post/2016-03-02/</link>
+      <pubDate>Wed, 02 Mar 2016 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2016-03-02/</guid>
+      <description>&lt;p&gt;android开发，涉及到自定义view的时机会非常的多，完成一个非常优质的view，view必须和用户又一个非常良好的交互。view的事件处理就是一个很重要的环节。&lt;/p&gt;
+
+&lt;p&gt;本文是对view有一定基础的总结。
+&lt;/p&gt;
+
+&lt;h1 id=&#34;android-触摸机制&#34;&gt;Android 触摸机制&lt;/h1&gt;
+
+&lt;p&gt;在理解事件处理机制之前，我们先理解一下，view和viewGroup的异同。&lt;/p&gt;
+
+&lt;h3 id=&#34;view&#34;&gt;view&lt;/h3&gt;
+
+&lt;p&gt;view 在官方文档上是这么写的：This class represents the basic building block for user interface components.也就是说这个类代表用户界面组件的基本构建块。所有在ui界面上看到的东西本质上都是view.或者是从View继承过来的。&lt;/p&gt;
+
+&lt;p&gt;比如常见的控件，textview，button，都是继承view。&lt;/p&gt;
+
+&lt;h3 id=&#34;viewgroup&#34;&gt;viewGroup&lt;/h3&gt;
+
+&lt;p&gt;ViewGroup在官方文档上是这么写的：The ViewGroup subclass is the base class for layouts, which are invisible containers that hold other Views (or other ViewGroups) and define their layout properties.简单来说，viewGroup就是布局。而布局我们最常见的也就是linearLayout，RealtiveLayout,FrameLayout等等。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;从类结构，层级上来看,view 是包含 textview，viewGroup的。
+
+view是根，其他的都是衍生出来的
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;从界面的包含关系上来看,viewGroup 是包含 view，viewGroup的
+
+viewGroup是根，其他的都是附加在viewGroup上的
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;理解之后，我们从操作上知道，当我们的手，去触摸屏幕的时候，界面会随着我们的操作而进行不同的交互。&lt;/p&gt;
+
+&lt;p&gt;触摸的时候，就是一个touch事件处理的过程。&lt;/p&gt;
+
+&lt;h3 id=&#34;touch事件&#34;&gt;touch事件&lt;/h3&gt;
+
+&lt;p&gt;Touch事件分发中只有两个主角:ViewGroup和View。Activity的Touch事件事实上是调用它内部的ViewGroup的Touch事件，可以直接当成ViewGroup处理。&lt;/p&gt;
+
+&lt;p&gt;简单的了解一下Android 处理触摸事件主要涉及到几个方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;onInterceptTouchEvent(),（只有viewGroup有）
+
+dipatchTouchEvent(), onTouchEvent(), onTouch()。
+view和viewGroup都有
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;onInterceptTouchEvent（）从字面上看都是拦截用的。
+dipatchTouchEvent（） 是分发。
+onTouchEvent(), onTouch() 是处理触摸的。&lt;/p&gt;
+
+&lt;p&gt;通过上面我们知道，view是没有拦截方法的，也就是它没有办法往下传递。所以就没有中断接受的概念。&lt;/p&gt;
+
+&lt;p&gt;其实在view中，dispatchTouchEvent（）没什么意思。因为，它分发这个事件，其实就是给自己处理。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;所以，一般情况下，我们不该在普通View内重写
+dispatchTouchEvent方法，因为它并不执行分发逻辑。
+当Touch事件到达View时，我们该做的就是是否在
+onTouchEvent事件中处理它。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;触摸事件具体调用顺序&#34;&gt;触摸事件具体调用顺序&lt;/h3&gt;
+
+&lt;p&gt;默认情况下，我们的动作都是从最外层传递到最里层的，一般简单的来说，也就是从ViewGroup到view。而实际处理，则是从最里层开始，一层层到外层。也就是view到ViewGroup。&lt;/p&gt;
+
+&lt;p&gt;首先会调用最外层的dispatchTouchEvent()，其实这个方法就是分发事件，返回false，表示此层不接受这个动作，继续发送给下层。如果是true，则不传递动作给下面了。如果是viewGroup的话，接下来会调用onInterceptTouchEvent(),此方法用于拦截动作，返回true，拦截成功，false，不拦截。&lt;/p&gt;
+
+&lt;p&gt;动作传递到下一层之后，会继续重复上面的动作。直到传递到最里层，也就是上图的叶子节点。这个时候，会调用onTouchEvent事件。如果返回false，表示继续往上传递，会调用上层的onTouchEvent()的事件，重复一直到执行到最上层。也就是上图的根节点。&lt;/p&gt;
+
+&lt;p&gt;在这里有一件事情要注意，也就是，只有当viewGroup里面的所有子控件返回的都是false，才会执行viewGroup的onTouchEvent（）。&lt;/p&gt;
+
+&lt;p&gt;在目前的情况看来， 似乎只要我们把所有的onTouchEvent都返回false，就能保证所有的子控件都响应本次Touch事件了。但必须要说明的是，这里的Touch 事件，只限于Acition_Down事件，即触摸按下事件,而Aciton_UP和Action_MOVE却不会执行。事实上，一次完整的Touch事 件，应该是由一个Down、一个Up和若干个Move组成的。Down方式通过dispatchTouchEvent分发，分发的目的是为了找到真正需要 处理完整Touch请求的View。当某个View或者ViewGroup的onTouchEvent事件返回true时，便表示它是真正要处理这次请求 的View，之后的Aciton_UP和Action_MOVE将由它处理。当所有子View的onTouchEvent都返回false时，这次的 Touch请求就由根ViewGroup，即Activity自己处理了。&lt;/p&gt;
+
+&lt;h3 id=&#34;总结一下&#34;&gt;总结一下&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Touch 事件分发中只有两个主角:ViewGroup和View。ViewGroup包含onInterceptTouchEvent、 dispatchTouchEvent、onTouchEvent三个相关事件。View包含dispatchTouchEvent、 onTouchEvent两个相关事件。其中ViewGroup又继承于View。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ViewGroup和View组成了一个树状结构，根节点为Activity内部包含的一个ViwGroup。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;触摸事件由Action_Down、Action_Move、Aciton_UP组成，其中一次完整的触摸事件中，Down和Up都只有一个，Move有若干个，可以为0个。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;当Acitivty接收到Touch事件时，将遍历子View进行Down事件的分发。ViewGroup的遍历可以看成是递归的。分发的目的是为了找到真正要处理本次完整触摸事件的View，这个View会在onTouchuEvent结果返回true。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;当某个子 View返回true时，会中止Down事件的分发，同时在ViewGroup中记录该子View。接下去的Move和Up事件将由该子View直接进行 处理。由于子View是保存在ViewGroup中的，多层ViewGroup的节点结构时，上级ViewGroup保存的会是真实处理事件的View所 在的ViewGroup对象:如ViewGroup0-ViewGroup1-TextView的结构中，TextView返回了true，它将被保存在 ViewGroup1中，而ViewGroup1也会返回true，被保存在ViewGroup0中。当Move和UP事件来时，会先从 ViewGroup0传递至ViewGroup1，再由ViewGroup1传递至TextView。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;当 ViewGroup中所有子View都不捕获Down事件时，将触发ViewGroup自身的onTouch事件。触发的方式是调用 super.dispatchTouchEvent函数，即父类View的dispatchTouchEvent方法。在所有子View都不处理的情况 下，触发Acitivity的onTouchEvent方法。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;onInterceptTouchEvent有两个作用：1.拦截Down事件的分发。2.中止Up和Move事件向目标View传递，使得目标View所在的ViewGroup捕获Up和Move事件。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
