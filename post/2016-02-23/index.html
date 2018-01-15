@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="Android, 无响应, ANR, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="浅谈Android ANR : 桂圆的第二人生"/>
+<meta property="og:site_name" content="xiaoyuan gui blog"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="https://guixiaoyuan.github.io/post/2016-02-23/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-02-23"/>
+<meta property="article:modified_time" content="2016-02-23"/>
+
+
+
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="无响应">
+<meta property="article:tag" content="ANR">
+
+
+
+
+
+    <base href="https://guixiaoyuan.github.io/">
+    <title> 浅谈Android ANR - 桂圆的第二人生 </title>
+    <link rel="canonical" href="https://guixiaoyuan.github.io/post/2016-02-23/">
+    
+
+    
+<link rel="stylesheet" href="/static/css/style.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?a79535ca63291dc820e3ecefa615aad1";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+</head>
+
+<body lang="en" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+	<nav id="nav">
+	<div id="title"><a href="/">桂圆的第二人生</a></div>
+    <div><a href=mailto: 463316523@qq.com target="_blank" class="mailto"> </span> <span class="icon-mail"></span>463316523@qq.com</a></div>
+	</nav>
+    <nav id="nav">
+    	        <ul id="mainnav">
+            <li>
+                <a href="/蘅芜/">
+                <span class="icon"> <i aria-hidden="true" class="icon-pencil"></i></span>
+                <span> 蘅芜 </span>
+            </a>
+            </li>
+            <li>
+            <a href="/潇湘/">
+                <span class="icon"> <i aria-hidden="true" class="icon-quill"></i></span>
+                <span> 潇湘 </span>
+            </a>
+            </li>
+            <li>
+            <a href="/观叹/">
+                <span class="icon"> <i aria-hidden="true" class="icon-leaf"></i></span>
+                <span> 观叹 </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="icon-heart"></i></span>
+                <span> 关于 </span>
+            </a>
+            </li>
+        </ul>
+
+    </nav>
+    <nav id="nav">
+       	        <ul id="social">
+            
+            <li id="share">
+                <span class="title"> 友链 </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      
+                      <li> <a href="http://spf13.com" target="_blank" title="spf13 is Steve Francis" class="facebook">spf13</a> </li>
+                      <li> <a href="http://libaier.net" target="_blank" title="Libaier" class="rss">Libaier</a> </li>
+                      <li> <a href="http://www.androidweekly.cn/" target="_blank" title="Android开发周报" class="douban">Android 开发周报</a></li>
+                      <li> <a href="http://androidblog.cn/" target="_blank" title="Android blog周刊" class="yangzhe">Android blog周刊</a></li>
+                      <li> <a href="http://http://tianwang.gift/" target="_blank" title="Tian" class="tian">Tian</a></li>
+                    </ul>
+                <span class="icon icon-bubbles"> </span> <span class="subcount"></span> </div>
+            </li>
+    
+            <li id="follow">
+                <span class="title"> 驻留地 </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        
+
+                        <li> <a href="http://weibo.com/2975201462/profile?topnav=1&wvr=6" target="_blank" title="微博" class="weibo">微博</a> </li>
+                        <li> <a href="https://www.zhihu.com/people/gui-xiao-yuan" target="_blank" title="知乎" class="zhihu">知乎</a> </li>
+                        <li> <a href="https://github.com/guixiaoyuan" target="_blank" title="GitHub" class="github">GitHub</a> </li>                         
+                        
+                    </ul>
+                <span class="icon icon-rocket"> </span> <span class="subcount"></span> </div>
+            </li>
+
+        </ul>
+
+	</nav>
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" >浅谈Android ANR</h1>
+  
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Tue Feb 23, 2016 </h4>
+          
+        </section>
+        
+        <ul id="tags">
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/android">Android</a> </li>
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/%E6%97%A0%E5%93%8D%E5%BA%94">无响应</a> </li>
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/anr">ANR</a> </li>
+          
+        </ul>
+    </div>
+
+
+</aside>
+
+<meta itemprop="wordCount" content="98">
+<meta itemprop="datePublished" content="2016-02-23">
+<meta itemprop="url" content="https://guixiaoyuan.github.io/post/2016-02-23/">
+
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           <p>使用android手机的时候，有时候会出现卡屏，无法动弹的情况。本文就简单的说明一下程序无响应的问题。
+</p>
+
+<h1 id="浅谈android-anr">浅谈Android ANR</h1>
+
+<p>ANR is Application Not Responding.</p>
+
+<h2 id="现象">现象</h2>
+
+<p>用户感知为程序长时间无法响应，Android系统自身会弹出一个对话框，告知需要等待，还是杀死程序。</p>
+
+<h2 id="原因">原因</h2>
+
+<p>应用程序主线程在超时时间内对输入事件没有处理完毕，或者对特定操作没有执行完毕，就会出现ANR。</p>
+
+<h2 id="anr的类型">ANR的类型</h2>
+
+<ul>
+<li>KeyDispatchTimeout(5 seconds)
+<br /></li>
+</ul>
+
+<p>主要类型，系统会显示对话框提示。按键或触摸事件在特定时间内无响应。</p>
+
+<pre><code>  可能出现的两种情况
+  1，用户输入事件处理超时；2，窗口获取焦点超时
+</code></pre>
+
+<ul>
+<li><p>BroadcastTimeout(10 seconds)  </p>
+
+<p>系统仅仅输出log而已，BroadcastReceiver在特定时间内无法处理完成</p></li>
+
+<li><p>ServiceTimeout(20 seconds)  </p>
+
+<p>系统仅仅输出log而已，Service在特定时间内无法处理完成</p></li>
+
+<li><p>ContentProvider相关操作执行超时，（I/O耗时操作）,在UI线程中进行网络操作，也容易引发ANR。</p></li>
+</ul>
+
+<h2 id="解决套路">解决套路</h2>
+
+<ul>
+<li>第一种情况</li>
+</ul>
+
+<pre><code>Log提示语：Reason:Input dispatching timed out(Waiting because the focused window has not finished processing the input events that were previously delivered to it);
+</code></pre>
+
+<p>产生这种ANR的前提是要有输入事件，如果用户没有触发任何输入事件，即使是主线程阻塞，也不会产生ANR，因为InputDispatcer没有分发事件给应用程序，所以不会检测处理超时，以及报告ANR。</p>
+
+<ul>
+<li>第二种情况：</li>
+</ul>
+
+<pre><code>Log提示语：Reason:Input dispatching timed out(Waiting because no window has focus but there is a focused application that may eventually add a window when it finishes starting up); 
+</code></pre>
+
+<p>如何避免KeyDispatchTimeout</p>
+
+<p>1：UI线程尽量只做跟UI相关的工作</p>
+
+<p>2：耗时的工作（比如数据库操作，I/O，连接网络或者别的有可能阻碍UI线程的操作）把它放入单独的线程处理</p>
+
+<p>3：尽量用Handler来处理UIthread和别的thread之间的交互</p>
+
+<h2 id="android的一些耗时操作">android的一些耗时操作</h2>
+
+<ul>
+<li>数据库操作。数据库操作尽量采用异步方法做处理。</li>
+<li>初始化的数据和控件太多。</li>
+<li>频繁的创建线程或者其他大对象。</li>
+<li>加载过大数据和图片</li>
+<li>对大树据排序和循环操作</li>
+<li>过多的广播和滥用广播</li>
+<li>大树据的传递和共享</li>
+<li>访问网络</li>
+<li>避免在循环中创建对象。</li>
+</ul>
+
+<h2 id="最后一点小体会">最后一点小体会</h2>
+
+<p>Thread.sleep();表示主动休眠，无论你设置为多长时间，只要你在睡眠的时候，不进行其他的操作，都不会造成anr。</p>
+
+<p>如果你在代码中，直接引用Thread, 在ui线程中，就是ui thread。在子线程中，就是子线程 thread。</p>
+
+<p>直接new Thread().start().这个就是创建一个子线程，ui线程和子线程会一起执行。如果对同一个资源进行操作，所以才会产生死锁现象</p>
+        </article>
+  </div>
+</section>
+
+<aside id=comments>
+    <div><h2> Comments </h2></div>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "guixiaoyuan" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+<footer>
+  <div>
+    <p>
+    &copy; 2017 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Xiaoyuan Gui.</span></span>
+        Powered by <a href="http://hugo.spf13.com">Hugo</a>.
+        Theme by <a href="http://spf13.com">Steve Francia</a>.
+    </p>
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i &lt; all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</body>

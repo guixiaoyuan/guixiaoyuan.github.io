@@ -28,8 +28,19 @@
   </url>
   
   <url>
+    <loc>https://guixiaoyuan.github.io/post/2016-02-23/</loc>
+    <lastmod>2016-02-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/tags/android/</loc>
     <lastmod>2017-08-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guixiaoyuan.github.io/tags/anr/</loc>
+    <lastmod>2016-02-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -77,6 +88,12 @@
   <url>
     <loc>https://guixiaoyuan.github.io/tags/%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2017-08-20T00:30:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guixiaoyuan.github.io/tags/%E6%97%A0%E5%93%8D%E5%BA%94/</loc>
+    <lastmod>2016-02-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
