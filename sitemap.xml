@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://guixiaoyuan.github.io/post/2018-02-09/</loc>
+    <lastmod>2018-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/post/2017-09-21/</loc>
     <lastmod>2017-09-21T00:00:00+00:00</lastmod>
   </url>
@@ -68,6 +73,12 @@
   </url>
   
   <url>
+    <loc>https://guixiaoyuan.github.io/tags/%E4%BA%B2%E6%83%85/</loc>
+    <lastmod>2018-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2017-08-20T00:30:03+08:00</lastmod>
     <priority>0</priority>
@@ -76,6 +87,12 @@
   <url>
     <loc>https://guixiaoyuan.github.io/tags/%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2017-08-20T00:30:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guixiaoyuan.github.io/tags/%E6%80%9D%E8%80%83/</loc>
+    <lastmod>2018-02-09T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -99,7 +116,7 @@
   
   <url>
     <loc>https://guixiaoyuan.github.io/</loc>
-    <lastmod>2017-09-21T00:00:00+00:00</lastmod>
+    <lastmod>2018-02-09T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -128,8 +145,20 @@
   </url>
   
   <url>
+    <loc>https://guixiaoyuan.github.io/%E8%A7%82%E5%8F%B9/</loc>
+    <lastmod>2018-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/tags/%E8%A7%A6%E6%91%B8%E6%9C%BA%E5%88%B6/</loc>
     <lastmod>2016-03-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guixiaoyuan.github.io/tags/%E8%AF%97/</loc>
+    <lastmod>2018-02-09T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
