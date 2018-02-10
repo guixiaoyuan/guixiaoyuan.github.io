@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Drawable资源 on 桂圆的第二人生 </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://guixiaoyuan.github.io/tags/drawable%E8%B5%84%E6%BA%90/</link>
+    <language>en-us</language>
+    <author>Xiaoyuan Gui</author>
+    <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
+    <updated>Wed, 06 Jan 2016 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Android 如何根据XML文件读取drawable资源</title>
+      <link>https://guixiaoyuan.github.io/post/2016-01-06/</link>
+      <pubDate>Wed, 06 Jan 2016 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2016-01-06/</guid>
+      <description>&lt;p&gt;问题提出的背景：自己在做launcher的新功能，摇一摇切换壁纸的时候。需要动态获取壁纸的id，然后填充到布局上。这样在后期维护的时候，就不需要过多的改动代码，直接增减图片，以及在配置文件（wallpapers.xml）中修改就好了。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;第一种做法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在XML文件中声明资源ID数组&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;array name = &amp;quot;drawer_icon_normal&amp;quot;&amp;gt;
+        &amp;lt;item&amp;gt;@drawable/ic_drawer_home_normal&amp;lt;/item&amp;gt;
+        &amp;lt;item&amp;gt;@drawable/ic_drawer_follow_normal&amp;lt;/item&amp;gt;
+        &amp;lt;item&amp;gt;@drawable/ic_drawer_collect_normal&amp;lt;/item&amp;gt;
+        &amp;lt;item&amp;gt;@drawable/ic_drawer_register_normal&amp;lt;/item&amp;gt;
+        &amp;lt;item&amp;gt;@drawable/ic_drawer_explore_normal&amp;lt;/item&amp;gt;
+    &amp;lt;/array&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后要获取ID需要通过TypedArray来获取。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;TypedArray array = context.getResources().obtainTypedArray(R.array.drawer_icon_normal);
+    for (int i = 0; i &amp;lt; array.length(); i++) {
+        drawables_normal[i] = array.getResourceId(i$, R.drawable.default_profile);//后面的drawable文件是找不到资源加载的的文件
+    }
+    array.recycle();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;第二种做法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;xml文件中声明有所不同。没有了@drawable，所以在获取图片名字的时候，直接是名字，而不是路径。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;array name = &amp;quot;drawer_icon_normal&amp;quot;&amp;gt;
+        &amp;lt;item&amp;gt;ic_drawer_home_normal&amp;lt;/item&amp;gt;
+        &amp;lt;item&amp;gt;ic_drawer_follow_normal&amp;lt;/item&amp;gt;
+        &amp;lt;item&amp;gt;ic_drawer_collect_normal&amp;lt;/item&amp;gt;
+        &amp;lt;item&amp;gt;ic_drawer_register_normal&amp;lt;/item&amp;gt;
+        &amp;lt;item&amp;gt;ic_drawer_explore_normal&amp;lt;/item&amp;gt;
+    &amp;lt;/array&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后获取Id的方法如下：&lt;/p&gt;
+
+&lt;p&gt;获取图片的文件名的方法：&lt;/p&gt;
+
+&lt;p&gt;String[] extras = getContext.getResources().getStringArray(R.array.drawer_icon_normal);&lt;/p&gt;
+
+&lt;p&gt;packageName的获取方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;getContext.getResources().getResourcesPackageName(R.array.drawer_icon_normal);
+int resId =  getContext().getResources().getIdentifier(&amp;quot;图片的文件名&amp;quot;，&amp;quot;文件的类型，如drawable&amp;quot;，&amp;quot;文件的packageName  一般为getContext.getPackageName()&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
