@@ -10,31 +10,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="keywords" content="">
+<meta name="keywords" content="Android, ViewHolder, 总结, ">
 
  
 <meta property="og:type" content="article"/>
 <meta property="og:description" content=""/>
-<meta property="og:title" content="Tags : 桂圆的第二人生"/>
+<meta property="og:title" content="ViewHolder 小结 : 桂圆的第二人生"/>
 <meta property="og:site_name" content="xiaoyuan gui blog"/>
 <meta property="og:image" content="" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="" />
 <meta property="og:image:height" content="" />
-<meta property="og:url" content="https://guixiaoyuan.github.io/tags/">
+<meta property="og:url" content="https://guixiaoyuan.github.io/post/2015-12-23/">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2017-08-26"/>
-<meta property="article:modified_time" content="2017-08-26"/>
+<meta property="article:published_time" content="2015-12-23"/>
+<meta property="article:modified_time" content="2015-12-23"/>
 
+
+
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="ViewHolder">
+<meta property="article:tag" content="总结">
 
 
 
 
 
     <base href="https://guixiaoyuan.github.io/">
-    <title> Tags - 桂圆的第二人生 </title>
-    <link rel="canonical" href="https://guixiaoyuan.github.io/tags/">
-    <link href="https://guixiaoyuan.github.io/tags/index.xml" rel="alternate" type="application/rss+xml" title="Tags" />
+    <title> ViewHolder 小结 - 桂圆的第二人生 </title>
+    <link rel="canonical" href="https://guixiaoyuan.github.io/post/2015-12-23/">
+    
 
     
 <link rel="stylesheet" href="/static/css/style.css">
@@ -53,7 +58,7 @@
 
 </head>
 
-<body lang="en">
+<body lang="en" itemscope itemtype="http://schema.org/Article">
 <header id="header">
 	<nav id="nav">
 	<div id="title"><a href="/">桂圆的第二人生</a></div>
@@ -125,49 +130,100 @@
 </header>
 
 
+
 <section id="main">
+  <h1 itemprop="name" >ViewHolder 小结</h1>
+  
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Wed Dec 23, 2015 </h4>
+          
+        </section>
+        
+        <ul id="tags">
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/android">Android</a> </li>
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/viewholder">ViewHolder</a> </li>
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/%E6%80%BB%E7%BB%93">总结</a> </li>
+          
+        </ul>
+    </div>
+
+
+</aside>
+
+<meta itemprop="wordCount" content="20">
+<meta itemprop="datePublished" content="2015-12-23">
+<meta itemprop="url" content="https://guixiaoyuan.github.io/post/2015-12-23/">
+
+
   <div>
-   <h1 id="title">Tags</h1>
-   
-    
-    <h2><a href="tags/android"> android </a> 4 </h2>
-    
-    <h2><a href="tags/%E6%80%BB%E7%BB%93"> 总结 </a> 2 </h2>
-    
-    <h2><a href="tags/anr"> anr </a> 1 </h2>
-    
-    <h2><a href="tags/java"> java </a> 1 </h2>
-    
-    <h2><a href="tags/view"> view </a> 1 </h2>
-    
-    <h2><a href="tags/viewholder"> viewholder </a> 1 </h2>
-    
-    <h2><a href="tags/%E4%BA%B2%E6%83%85"> 亲情 </a> 1 </h2>
-    
-    <h2><a href="tags/%E5%8D%9A%E5%AE%A2"> 博客 </a> 1 </h2>
-    
-    <h2><a href="tags/%E5%AD%A6%E4%B9%A0"> 学习 </a> 1 </h2>
-    
-    <h2><a href="tags/%E6%80%9D%E8%80%83"> 思考 </a> 1 </h2>
-    
-    <h2><a href="tags/%E6%95%99%E7%A8%8B"> 教程 </a> 1 </h2>
-    
-    <h2><a href="tags/%E6%97%A0%E5%93%8D%E5%BA%94"> 无响应 </a> 1 </h2>
-    
-    <h2><a href="tags/%E7%83%AD%E6%9B%B4%E6%96%B0"> 热更新 </a> 1 </h2>
-    
-    <h2><a href="tags/%E7%BD%91%E7%AB%99"> 网站 </a> 1 </h2>
-    
-    <h2><a href="tags/%E8%A7%A6%E6%91%B8%E6%9C%BA%E5%88%B6"> 触摸机制 </a> 1 </h2>
-    
-    <h2><a href="tags/%E8%AF%97"> 诗 </a> 1 </h2>
-    
-    <h2><a href="tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E7%94%9F%E6%88%90%E5%99%A8"> 静态网站生成器 </a> 1 </h2>
-    
+        <article itemprop="articleBody" id="content">
+           <p>adapter用的很多，android 5.0之后，采用recycleview来取代之前的listview。其中最大的一点就是让大家习惯于用viewholder.自己小结一下viewHolder的好处。</p>
+
+<p>根据android对view的绘制原理，我们可以看到每一次对画布中view的寻找，是自上而下的，所以每一次findviewbyId的消耗非常大。</p>
+
+<p></p>
+
+<p>所以根据为了减少不必要的资源浪费，我们直接将找到的id资源，暂存起来。也就是放进ViewHolder中。</p>
+
+<p>viewHolder不是一个缓存类，只是一个静态类。</p>
+
+<h3 id="2-convertview中的tag">2.convertView中的TAG：</h3>
+
+<p>(1).Tag不像ID是用标示view的。Tag从本质上来讲是就是相关联的view的额外的信息。它们经常用来存储一些view的数据，这样做非常方便而不用存入另外的单独结构。</p>
+
+<p>(2). 首先我们要知道setTag方法是干什么的：他是给View对象的一个标签。</p>
+
+<p>*标签可以是任何内容，我们这里把他设置成了一个对象*，</p>
+
+<p>因为我们是把vlist2.xml的元素抽象出来成为一个类ViewHolder，用了setTag，这个标签就是ViewHolder实例化后对象的一个属性。我们之后对于ViewHolder实例化的对象holder的操作，都会因为java的引用机制而一直存活并改变convertView的内容，而不是每次都是去new一个。我们就这样达到的重用。</p>
+
+<p>Tag的作用就是设置标签，标签可以是任意玩意。
+以及convertView是如何在程序中使代码运行变的效率的：利用缓存convertView尽可能少实例化同样结构体的对象；</p>
+
+<p>自己在写demo的时候，本来是想看滑动listview，item的加载情况。没想到，意外的发现了getView的重复调用的情况。</p>
+
+<p>在布局中将listview里高度设置成wrap_parent。计算父控件的高度所以造成了一种反复调用情况，从而次数不确定。</p>
+
+<p>当我们固定listview的高度时（fill_parent或直接固定高度），那么listview很容易就能计算出容器内可以显示多少行。但如果我们使用了“wrap_content”，只有在屏幕内控件完全加载后才知道到底能显示多少行数据时，ListView自身便会做一些尝试性计算。在源码中可以发现一些叫做onMeasure的方法，目测是做此用处(源码略显复杂，没读透)。
+当listview计算出屏幕一共需要多少行后，如果listview自身高度不变，那么它的容纳的行数就不会变，使用getChildCount()可以得到它的最大行数。</p>
+
+<p>更深层次的解释为:
+View在Draw的时候分成两个阶段：measure和layout，在measure阶段时主要就是为了计算两个参数：height和width。而且要注意的是，这是个递归的过程，从顶向下，DecorView开始依次调用自己子元素的measure。计算完成这两个参数后就开始layout，最后再是draw的调用。
+对于ListView，当然每一个Item都会被调用measure方法，而在这个过程中getView和getCount会被调用，而且看用户的需求，可能会有很多次调用。</p>
+        </article>
   </div>
 </section>
 
-<aside id="meta"> </aside>
+<aside id=comments>
+    <div><h2> Comments </h2></div>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "guixiaoyuan" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
 
 <footer>
   <div>
@@ -202,3 +258,22 @@ fitText(document.getElementById('title'), 1)
 </body>
 </html>
 
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</body>

@@ -791,5 +791,46 @@ onTouchEvent事件中处理它。
 &lt;p&gt;直接new Thread().start().这个就是创建一个子线程，ui线程和子线程会一起执行。如果对同一个资源进行操作，所以才会产生死锁现象&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>ViewHolder 小结</title>
+      <link>https://guixiaoyuan.github.io/post/2015-12-23/</link>
+      <pubDate>Wed, 23 Dec 2015 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2015-12-23/</guid>
+      <description>&lt;p&gt;adapter用的很多，android 5.0之后，采用recycleview来取代之前的listview。其中最大的一点就是让大家习惯于用viewholder.自己小结一下viewHolder的好处。&lt;/p&gt;
+
+&lt;p&gt;根据android对view的绘制原理，我们可以看到每一次对画布中view的寻找，是自上而下的，所以每一次findviewbyId的消耗非常大。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;所以根据为了减少不必要的资源浪费，我们直接将找到的id资源，暂存起来。也就是放进ViewHolder中。&lt;/p&gt;
+
+&lt;p&gt;viewHolder不是一个缓存类，只是一个静态类。&lt;/p&gt;
+
+&lt;h3 id=&#34;2-convertview中的tag&#34;&gt;2.convertView中的TAG：&lt;/h3&gt;
+
+&lt;p&gt;(1).Tag不像ID是用标示view的。Tag从本质上来讲是就是相关联的view的额外的信息。它们经常用来存储一些view的数据，这样做非常方便而不用存入另外的单独结构。&lt;/p&gt;
+
+&lt;p&gt;(2). 首先我们要知道setTag方法是干什么的：他是给View对象的一个标签。&lt;/p&gt;
+
+&lt;p&gt;*标签可以是任何内容，我们这里把他设置成了一个对象*，&lt;/p&gt;
+
+&lt;p&gt;因为我们是把vlist2.xml的元素抽象出来成为一个类ViewHolder，用了setTag，这个标签就是ViewHolder实例化后对象的一个属性。我们之后对于ViewHolder实例化的对象holder的操作，都会因为java的引用机制而一直存活并改变convertView的内容，而不是每次都是去new一个。我们就这样达到的重用。&lt;/p&gt;
+
+&lt;p&gt;Tag的作用就是设置标签，标签可以是任意玩意。
+以及convertView是如何在程序中使代码运行变的效率的：利用缓存convertView尽可能少实例化同样结构体的对象；&lt;/p&gt;
+
+&lt;p&gt;自己在写demo的时候，本来是想看滑动listview，item的加载情况。没想到，意外的发现了getView的重复调用的情况。&lt;/p&gt;
+
+&lt;p&gt;在布局中将listview里高度设置成wrap_parent。计算父控件的高度所以造成了一种反复调用情况，从而次数不确定。&lt;/p&gt;
+
+&lt;p&gt;当我们固定listview的高度时（fill_parent或直接固定高度），那么listview很容易就能计算出容器内可以显示多少行。但如果我们使用了“wrap_content”，只有在屏幕内控件完全加载后才知道到底能显示多少行数据时，ListView自身便会做一些尝试性计算。在源码中可以发现一些叫做onMeasure的方法，目测是做此用处(源码略显复杂，没读透)。
+当listview计算出屏幕一共需要多少行后，如果listview自身高度不变，那么它的容纳的行数就不会变，使用getChildCount()可以得到它的最大行数。&lt;/p&gt;
+
+&lt;p&gt;更深层次的解释为:
+View在Draw的时候分成两个阶段：measure和layout，在measure阶段时主要就是为了计算两个参数：height和width。而且要注意的是，这是个递归的过程，从顶向下，DecorView开始依次调用自己子元素的measure。计算完成这两个参数后就开始layout，最后再是draw的调用。
+对于ListView，当然每一个Item都会被调用measure方法，而在这个过程中getView和getCount会被调用，而且看用户的需求，可能会有很多次调用。&lt;/p&gt;</description>
+    </item>
+    
   </channel>
 </rss>
