@@ -157,7 +157,7 @@
 
 </aside>
 
-<meta itemprop="wordCount" content="107">
+<meta itemprop="wordCount" content="178">
 <meta itemprop="datePublished" content="2016-03-02">
 <meta itemprop="url" content="https://guixiaoyuan.github.io/post/2016-03-02/">
 
@@ -222,6 +222,47 @@ dispatchTouchEvent方法，因为它并不执行分发逻辑。
 当Touch事件到达View时，我们该做的就是是否在
 onTouchEvent事件中处理它。
 </code></pre>
+
+<h3 id="ontouch-和ontouchevent-的关系">onTouch()和onTouchEvent()的关系</h3>
+
+<pre><code>public boolean dispatchTouchEvent(MotionEvent event) {
+       
+       	...
+
+        if (onFilterTouchEventForSecurity(event)) {
+            if ((mViewFlags &amp; ENABLED_MASK) == ENABLED &amp;&amp; handleScrollBarDragging(event)) {
+                result = true;
+            }
+            //noinspection SimplifiableIfStatement
+            ListenerInfo li = mListenerInfo;
+            if (li != null &amp;&amp; li.mOnTouchListener != null
+                    &amp;&amp; (mViewFlags &amp; ENABLED_MASK) == ENABLED
+                    &amp;&amp; li.mOnTouchListener.onTouch(this, event)) {
+                result = true;
+            }
+
+            if (!result &amp;&amp; onTouchEvent(event)) {
+                result = true;
+            }
+        }
+
+		...
+
+        return result;
+    }
+</code></pre>
+
+<p>先看view关于分发的源码，我们知道onTouchLister的优先级高于onTouchEvent事件。所以onTouch()比onTouchEvent(）先调用。</p>
+
+<p>onTouch事件消费完成，返回ture的时候，onTouchEvent()就不会调用。</p>
+
+<p>因为Button的performClick是利用onTouchEvent实现，假若onTouchEvent没有被调用到，那么Button的Click事件也无法响应。</p>
+
+<p>onTouchListener的onTouch方法优先级比onTouchEvent高，会先触发。</p>
+
+<p>假如onTouch方法返回false会接着触发onTouchEvent，反之onTouchEvent方法不会被调用。</p>
+
+<p>内置诸如click事件的实现等等都基于onTouchEvent，假如onTouch返回true，这些事件将不会被触发。</p>
 
 <h3 id="触摸事件具体调用顺序">触摸事件具体调用顺序</h3>
 
