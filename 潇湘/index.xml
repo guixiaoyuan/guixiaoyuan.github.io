@@ -7,7 +7,165 @@
     <language>en-us</language>
     <author>Xiaoyuan Gui</author>
     <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
-    <updated>Thu, 21 Sep 2017 00:00:00 UTC</updated>
+    <updated>Thu, 22 Mar 2018 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Gradle从2.1升级到3.3具体的一些坑</title>
+      <link>https://guixiaoyuan.github.io/post/2018-03-22/</link>
+      <pubDate>Thu, 22 Mar 2018 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2018-03-22/</guid>
+      <description>&lt;p&gt;最近维护原有的老项目的时候，发现gradle版本居然是2.1版本，难怪我说编译需要花费5分钟！！！尤其是现在的gradle稳定版本已经4.1+的情况下，显得更慢。&lt;/p&gt;
+
+&lt;p&gt;本着时间就是金钱的理念，开启了我的升级填坑之旅！、
+&lt;/p&gt;
+
+&lt;p&gt;当然升级不能走的太快，太快容易扯着蛋。稳妥起见，决定先升级到3.3。（其实是公司其他项目都用3.3版本，我也很想升级到最新版本，体验快的感觉啊）&lt;/p&gt;
+
+&lt;p&gt;第一步就是在最外层的build.gradle文件中修改版本号。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;classpath &#39;com.android.tools.build:gradle:2.1.0&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;神马，版本号怎么对应？&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.android.com/studio/releases/gradle-plugin.html#revisions&#34;&gt;谷歌官方版本对应说明，需要翻墙哦&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;对应下来，gradle3.3版本就是2.3.3&lt;/p&gt;
+
+&lt;h2 id=&#34;第一个坑&#34;&gt;第一个坑&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Error:A problem was found with the configuration of task &#39;:app:packageRelease&#39;.  
+&amp;gt; File &#39;E:\project-gitosc\pet\Pet-Android\Pet-Bulter\app\build\intermediates\res\resources-release-stripped.ap_&#39; specified for property &#39;resourceFile&#39; does not exist.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;原因：build.gradle（app）文件中，代码混淆和移除无用的资源文件有一个为false。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;解决方案：两者都必须为true&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;//启用代码混淆  
+minifyEnabled true  
+
+//移除无用的资源文件  
+shrinkResources true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;第二个坑&#34;&gt;第二个坑&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Error:All flavors must now belong to a named flavor dimension.Learn more at https://d.android.com/r/tools/flavorDimensions-missing-error-message.html 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;原因：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Plugin 3.0.0之后有一种自动匹配消耗库的机制，便于debug variant 自动消耗一个库，然后就是必须要所有的flavor 都属于同一个维度。
+为了避免flavor 不同产生误差的问题，应该在所有的库模块都使用同一个foo尺寸。具体的信息内容可以去看错误提示中的官网消息。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;解决方案：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;在主app的build.gradle里面的
+ defaultConfig {
+ targetSdkVersion：***
+ minSdkVersion ：***
+ versionCode：***
+ versionName ：***
+//版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
+flavorDimensions &amp;quot;versionCode&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;第三个坑&#34;&gt;第三个坑&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Unable to load class ‘org.gradle.api.internal.component.Usage’.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;原因&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;novoda:bintray 版本老旧。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;解决方案&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;修改项目根目录下的build.gradle的版本号&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        ...
+        classpath &#39;com.novoda:bintray-release:0.5.0&#39;//修改此处版本号为 0.5.0---修改之前是0.3.4
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;第四个坑&#34;&gt;第四个坑&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Error:Could not resolve all files for configuration &#39;:app:xxxxxxxDebugCompileClasspath&#39;.
+
+Failed to transform file &#39;commons-lang-2.4.jar&#39; to match attributes {artifactType=android-classes} using transform JarTransform Transform output file xxxxxxx/xxxxxxx/xxxxxxx/app/commons-lang-2.4.jar does not exist.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;原因 jar包寻找不到。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;仔细一看项目中引入jar包的方式还是很古老的&lt;/p&gt;
+
+&lt;p&gt;compile files(&amp;lsquo;libs/mta-sdk-1.6.2.jar&amp;rsquo;)&lt;/p&gt;
+
+&lt;p&gt;新版本不识别。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;解决方案&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;删除原有引入方式，重新引入&lt;/p&gt;
+
+&lt;p&gt;compile fileTree(include: [&amp;rsquo;*.jar&amp;rsquo;], dir: &amp;lsquo;libs&amp;rsquo;)&lt;/p&gt;
+
+&lt;h2 id=&#34;第五个坑&#34;&gt;第五个坑&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Cannot set the value of read-only property ‘outputFile’ ） 
+Error:(56, 0) Cannot set the value of read-only property ‘outputFile’ for ApkVariantOutputImpl_Decorated{apkData=Main{type=MAIN, fullName=debug, filters=[]}} of type com.android.build.gradle.internal.api.ApkVariantOutputImpl.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;原因，&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;自定义输出apk名字的语法出现改变。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;解决方案。如下修改。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;//            applicationVariants.all { variant -&amp;gt;
+//                variant.outputs.each { output -&amp;gt;
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null &amp;amp;&amp;amp; outputFile.name.endsWith(&#39;.apk&#39;)) {
+//                        def fileName = &amp;quot;你自定义.apk&amp;quot;
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
+            android.applicationVariants.all { variant -&amp;gt;
+                variant.outputs.all {
+                    outputFileName = &amp;quot;你自定义.apk&amp;quot;
+                }
+            }
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     
     <item>
       <title>关于String的一点知识</title>
