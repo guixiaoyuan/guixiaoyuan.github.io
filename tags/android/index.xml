@@ -7,7 +7,109 @@
     <language>en-us</language>
     <author>Xiaoyuan Gui</author>
     <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
-    <updated>Thu, 22 Mar 2018 00:00:00 UTC</updated>
+    <updated>Thu, 29 Mar 2018 00:30:03 CST</updated>
+    
+    <item>
+      <title>2018三月面试经历</title>
+      <link>https://guixiaoyuan.github.io/post/2018-03-29/</link>
+      <pubDate>Thu, 29 Mar 2018 00:30:03 CST</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2018-03-29/</guid>
+      <description>&lt;p&gt;金三银四。求职的好机会。第一个需求发展，第二个看看市面上需要什么样的人才，找准自己的定位。坐标南京。面试了努比亚，苏宁，焦点科技，地平线机器人。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;地平线机器人&#34;&gt;地平线机器人&lt;/h2&gt;
+
+&lt;p&gt;fragment与activity的交互，fragment的生命周期，什么时候绘制view。
+怎么使用fragment，不带参数的fragment有什么好处？带参数的fragment会有什么弊端？&lt;/p&gt;
+
+&lt;p&gt;android有几大布局，一般你用什么？为什么？（估计是从性能优化的角度说，但是还没搞懂后续他会问什么，因为没回答出来他满意的答案，他也没继续问）&lt;/p&gt;
+
+&lt;p&gt;RxJava使用，Rxjava的好处。对Rxjava的理解。RxJava 操作符，比如map 和 flatMap 的区别，更高阶的东西需要去掌握;&lt;/p&gt;
+
+&lt;p&gt;Touch事件传递。比如说我现在有个两层布局，里面有一个button，点击button的时候，说说调用的方法。&lt;/p&gt;
+
+&lt;p&gt;封装了网络了，说说封装思路是什么？对httpClient的理解，google还支持使用它么？（这个我说不知道，估计后面本来还会问为什么不支持。)&lt;/p&gt;
+
+&lt;p&gt;用过多线程么？多线程之间是怎么通信的。&lt;/p&gt;
+
+&lt;p&gt;封装网路用了观察者模式，能解释观察者模式么？&lt;/p&gt;
+
+&lt;p&gt;地平线机器人是福利待遇最好的，还没面试前，hr就开始介绍福利。技术面试官非常深入，基本上围绕你的经历然后深度挖掘内容，是技术氛围非常厉害的一家公司。&lt;/p&gt;
+
+&lt;h2 id=&#34;努比亚&#34;&gt;努比亚&lt;/h2&gt;
+
+&lt;p&gt;看过Glide源码么？介绍一下里面的缓存机制。&lt;/p&gt;
+
+&lt;p&gt;用过handler么，谈谈handler机制。&lt;/p&gt;
+
+&lt;p&gt;使用过动画么，为啥引进属性动画？&lt;/p&gt;
+
+&lt;p&gt;了解过内存泄漏么？怎么解决的？&lt;/p&gt;
+
+&lt;p&gt;ANR问题怎么处理？&lt;/p&gt;
+
+&lt;p&gt;线程池用过么？&lt;/p&gt;
+
+&lt;p&gt;中等偏上的公司，问题比较有代表性，对系统性能要求比较高。&lt;/p&gt;
+
+&lt;h2 id=&#34;苏宁金融&#34;&gt;苏宁金融：&lt;/h2&gt;
+
+&lt;p&gt;fragment的生命周期？view是在什么时候绘制出来的？&lt;/p&gt;
+
+&lt;p&gt;设计模式用过么？说说你熟悉的几种？单例模式有几种。手写一个。&lt;/p&gt;
+
+&lt;p&gt;HashMap是无序的么？说出几个无序有序的map。&lt;/p&gt;
+
+&lt;p&gt;HashMap底层设计是什么样子的？为啥这么设计。&lt;/p&gt;
+
+&lt;p&gt;简要说一下，hashmap put 一个数值进去，是怎么进去的。怎么查找的？又聊了聊数组。&lt;/p&gt;
+
+&lt;p&gt;使用过kotlin么？&lt;/p&gt;
+
+&lt;p&gt;苏宁更偏向于基础问题，面试苏宁的时候，正好碰上了苏宁扩张。面试官非常真诚，讲了很多脱离技术的问题，对于一个技术来说，还是受益匪浅的。虽然过了苏宁的技术面试，但是被人事卡下来了。工资要的过高。还是挺可惜的，没有进苏宁金融。&lt;/p&gt;
+
+&lt;h2 id=&#34;焦点科技&#34;&gt;焦点科技&lt;/h2&gt;
+
+&lt;p&gt;v7包里面使用过什么控件？&lt;/p&gt;
+
+&lt;p&gt;怎么保证推送的覆盖率？&lt;/p&gt;
+
+&lt;p&gt;进程间通信有经验么？&lt;/p&gt;
+
+&lt;p&gt;android 安全有过经验么？&lt;/p&gt;
+
+&lt;p&gt;service用过么？&lt;/p&gt;
+
+&lt;p&gt;焦点科技面试我的部门。大概android7，8个人，负责7，8个app。不缺业务码农，需要对性能，安全，进程间通信方面有经验的人才。会RN，在焦点科技是加分项。&lt;/p&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;技术上欠缺的是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;进程间通信，&lt;/li&gt;
+&lt;li&gt;多线程并发，&lt;/li&gt;
+&lt;li&gt;view的绘制处理，滑动事件的冲突，&lt;/li&gt;
+&lt;li&gt;Android安全，&lt;/li&gt;
+&lt;li&gt;java基础&lt;/li&gt;
+&lt;li&gt;设计模式&lt;/li&gt;
+&lt;li&gt;对开源库的代码理解&lt;/li&gt;
+&lt;li&gt;RN混合开发（加分项）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;需要去做的是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;对源码的深度理解。&lt;/li&gt;
+&lt;li&gt;think in java&lt;/li&gt;
+&lt;li&gt;java设计模式&lt;/li&gt;
+&lt;li&gt;高并发&lt;/li&gt;
+&lt;li&gt;JS那本经典&lt;/li&gt;
+&lt;li&gt;Android两本经典&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     
     <item>
       <title>Gradle从2.1升级到3.3具体的一些坑</title>

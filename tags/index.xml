@@ -7,12 +7,21 @@
     <language>en-us</language>
     <author>Xiaoyuan Gui</author>
     <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
-    <updated>Thu, 22 Mar 2018 00:00:00 UTC</updated>
+    <updated>Thu, 29 Mar 2018 00:30:03 CST</updated>
+    
+    <item>
+      <title>2018</title>
+      <link>https://guixiaoyuan.github.io/tags/2018/</link>
+      <pubDate>Thu, 29 Mar 2018 00:30:03 CST</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/2018/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Android</title>
       <link>https://guixiaoyuan.github.io/tags/android/</link>
-      <pubDate>Thu, 22 Mar 2018 00:00:00 UTC</pubDate>
+      <pubDate>Thu, 29 Mar 2018 00:30:03 CST</pubDate>
       <author>Xiaoyuan Gui</author>
       <guid>https://guixiaoyuan.github.io/tags/android/</guid>
       <description></description>
@@ -132,15 +141,6 @@
       <pubDate>Sun, 20 Aug 2017 00:30:03 CST</pubDate>
       <author>Xiaoyuan Gui</author>
       <guid>https://guixiaoyuan.github.io/tags/%E6%95%99%E7%A8%8B/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>无响应</title>
-      <link>https://guixiaoyuan.github.io/tags/%E6%97%A0%E5%93%8D%E5%BA%94/</link>
-      <pubDate>Tue, 23 Feb 2016 00:00:00 UTC</pubDate>
-      <author>Xiaoyuan Gui</author>
-      <guid>https://guixiaoyuan.github.io/tags/%E6%97%A0%E5%93%8D%E5%BA%94/</guid>
       <description></description>
     </item>
     
