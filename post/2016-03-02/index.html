@@ -157,7 +157,7 @@
 
 </aside>
 
-<meta itemprop="wordCount" content="178">
+<meta itemprop="wordCount" content="192">
 <meta itemprop="datePublished" content="2016-03-02">
 <meta itemprop="url" content="https://guixiaoyuan.github.io/post/2016-03-02/">
 
@@ -196,6 +196,31 @@ viewGroup是根，其他的都是附加在viewGroup上的
 <p>理解之后，我们从操作上知道，当我们的手，去触摸屏幕的时候，界面会随着我们的操作而进行不同的交互。</p>
 
 <p>触摸的时候，就是一个touch事件处理的过程。</p>
+
+<h3 id="一个触摸事件的具体分发流程">一个触摸事件的具体分发流程</h3>
+
+<p>当我们的手指点击屏幕的时候，会产生一系列具体的事件。move ,down ,up。
+我们的activity 会第一个接受到事件。</p>
+
+<p>调用 dispatchTouchEvent() 事件。返回值有三种 true,false，super。</p>
+
+<p>true,false 表示touch事件在activity消费掉，不下发给view。</p>
+
+<p>super 表示下发给ViewGroup处理。具体流程看下图。</p>
+
+
+<figure >
+    
+        <img src="/media/android_touch.png" alt="example" />
+    
+    
+</figure>
+
+
+
+<p><img src="https://github.com/guixiaoyuan/guixiaoyuan.github.io/blob/master/static/media/android_touch.png" alt="" /></p>
+
+<p><img src="https://raw.githubusercontent.com/hgt312/hgt312.github.io/master/post/img/your_category/note_number/your_img.png" alt="" /></p>
 
 <h3 id="touch事件">touch事件</h3>
 

@@ -1252,6 +1252,31 @@ viewGroup是根，其他的都是附加在viewGroup上的
 
 &lt;p&gt;触摸的时候，就是一个touch事件处理的过程。&lt;/p&gt;
 
+&lt;h3 id=&#34;一个触摸事件的具体分发流程&#34;&gt;一个触摸事件的具体分发流程&lt;/h3&gt;
+
+&lt;p&gt;当我们的手指点击屏幕的时候，会产生一系列具体的事件。move ,down ,up。
+我们的activity 会第一个接受到事件。&lt;/p&gt;
+
+&lt;p&gt;调用 dispatchTouchEvent() 事件。返回值有三种 true,false，super。&lt;/p&gt;
+
+&lt;p&gt;true,false 表示touch事件在activity消费掉，不下发给view。&lt;/p&gt;
+
+&lt;p&gt;super 表示下发给ViewGroup处理。具体流程看下图。&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://guixiaoyuan.github.io/media/android_touch.png&#34; alt=&#34;example&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+
+&lt;p&gt;&lt;img src=&#34;https://github.com/guixiaoyuan/guixiaoyuan.github.io/blob/master/static/media/android_touch.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/hgt312/hgt312.github.io/master/post/img/your_category/note_number/your_img.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
 &lt;h3 id=&#34;touch事件&#34;&gt;touch事件&lt;/h3&gt;
 
 &lt;p&gt;Touch事件分发中只有两个主角:ViewGroup和View。Activity的Touch事件事实上是调用它内部的ViewGroup的Touch事件，可以直接当成ViewGroup处理。&lt;/p&gt;
