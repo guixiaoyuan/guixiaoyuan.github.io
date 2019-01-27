@@ -157,7 +157,7 @@
 
 </aside>
 
-<meta itemprop="wordCount" content="192">
+<meta itemprop="wordCount" content="349">
 <meta itemprop="datePublished" content="2016-03-02">
 <meta itemprop="url" content="https://guixiaoyuan.github.io/post/2016-03-02/">
 
@@ -207,6 +207,63 @@ viewGroup是根，其他的都是附加在viewGroup上的
 <p>true,false 表示touch事件在activity消费掉，不下发给view。</p>
 
 <p>super 表示下发给ViewGroup处理。具体流程看下图。</p>
+
+<p>这边先重点看一下，为什么activty的点击事件，传递到了viewGroup层。</p>
+
+<p>我们首先看一下源码(基于sdk-28)：</p>
+
+<pre><code>
+/**
+     * Called to process touch screen events.  You can override this to
+     * intercept all touch screen events before they are dispatched to the
+     * window.  Be sure to call this implementation for touch screen events
+     * that should be handled normally.
+     *
+     * @param ev The touch screen event.
+     *
+     * @return boolean Return true if this event was consumed.
+     */
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            onUserInteraction();
+        }
+        if (getWindow().superDispatchTouchEvent(ev)) {
+            return true;
+        }
+        return onTouchEvent(ev);
+    }
+    
+</code></pre>
+
+<p>很容易看到getWindow,这样子很容易让我们联想到和view有关。那我们看一下getWindow.superDispatchTouchEvent()做了什么。</p>
+
+<pre><code>    /**
+     * Used by custom windows, such as Dialog, to pass the touch screen event
+     * further down the view hierarchy. Application developers should
+     * not need to implement or call this.
+     *
+     */
+    public abstract boolean superDispatchTouchEvent(MotionEvent event);
+    
+</code></pre>
+
+<p>它是window里面的一个抽象方法。传递touch screen event。而我们知道activity里面有一个phoneWindow,所以追踪phoneWindow.superDispatchTouchEvent()</p>
+
+<pre><code> @Override
+    public boolean superDispatchTouchEvent(MotionEvent event) {
+        return mDecor.superDispatchTouchEvent(event);
+    }
+</code></pre>
+
+<p>看到了mDecor，大概我们就知道怎么传递下去的了。</p>
+
+<p>先看下mDecor的定义。</p>
+
+<pre><code> // This is the top-level view of the window, containing the window decor.
+    private DecorView mDecor;
+</code></pre>
+
+<p>就是我们手机屏幕的最外层view。然后它分发给里面的view，最后我们的view就拿到了传递事件。</p>
 
 
 <figure >
