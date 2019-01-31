@@ -7,7 +7,132 @@
     <language>en-us</language>
     <author>Xiaoyuan Gui</author>
     <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
-    <updated>Sun, 08 Jul 2018 00:00:00 UTC</updated>
+    <updated>Mon, 08 Oct 2018 00:00:00 UTC</updated>
+    
+    <item>
+      <title>多渠道打包</title>
+      <link>https://guixiaoyuan.github.io/post/2018-10-08/</link>
+      <pubDate>Mon, 08 Oct 2018 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2018-10-08/</guid>
+      <description>&lt;p&gt;新上的项目，需要发布12个渠道，小米，魅族，华为等等。就涉及到多渠道打包问题。小结一下。
+&lt;/p&gt;
+
+&lt;h2 id=&#34;为啥要多渠道打包&#34;&gt;为啥要多渠道打包？&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;添加渠道信息。我们要在安装包中添加不同的标识，应用在请求网络的时候携带渠道信息，方便后台做运营统计（这就是添加渠道信息的用处）。&lt;/li&gt;
+&lt;li&gt;批量修改生成的apk文件名&lt;/li&gt;
+&lt;li&gt;生成不同应用名称或图标&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;方法&#34;&gt;方法&lt;/h2&gt;
+
+&lt;p&gt;umeng 渠道统计&lt;/p&gt;
+
+&lt;p&gt;android manifest&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;meta-data
+            android:name=&amp;quot;UMENG_CHANNEL&amp;quot;
+            android:value=&amp;quot;umeng&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-gradle&#34;&gt;build.gradle&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId &amp;quot;com.lemeng.reader.lemengreader&amp;quot;
+        minSdkVersion 19
+        targetSdkVersion 27
+        multiDexEnabled true
+        versionCode 1200
+        versionName &amp;quot;1.2&amp;quot;
+        flavorDimensions &amp;quot;versionCode&amp;quot;
+        //动态配置
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: &amp;quot;umeng&amp;quot;]
+        ndk {
+            //设置支持的SO库架构
+            abiFilters &#39;armeabi&#39;, &#39;x86&#39;//, &#39;armeabi-v7a&#39;, &#39;x86_64&#39;, &#39;arm64-v8a&#39;
+        }
+    }
+
+
+    signingConfigs {    //签名设置
+        release {
+            storeFile file(&amp;quot;xxxx.keystore&amp;quot;)
+            storePassword &amp;quot;xxxxxx&amp;quot;
+            keyAlias &amp;quot;xxxx&amp;quot;
+            keyPassword &amp;quot;xxxxxx&amp;quot;
+        }
+        debug {
+            storeFile file(&amp;quot;xxxx.keystore&amp;quot;)
+            storePassword &amp;quot;xxxxxx&amp;quot;
+            keyAlias &amp;quot;xxxx&amp;quot;
+            keyPassword &amp;quot;xxxxxx&amp;quot;
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
+            buildConfigField(&amp;quot;boolean&amp;quot;, &amp;quot;LOG_DEBUG&amp;quot;, &amp;quot;false&amp;quot;)
+            //签名设置
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant -&amp;gt;
+            	//定制化输出apk路径
+                variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath+&amp;quot;/hmsq/release/&amp;quot;)
+                variant.outputs.each { output -&amp;gt;
+                    def outputFile = output.outputFile
+                    if (outputFile != null &amp;amp;&amp;amp; outputFile.name.endsWith(&#39;release.apk&#39;)) {
+                        def fileName = &amp;quot;${defaultConfig.applicationId}_${defaultConfig.versionName}_${defaultConfig.versionCode}_${variant.productFlavors[0].name}_release.apk&amp;quot;
+                        output.outputFileName = new File(fileName)
+                        println &amp;quot;输出文件位置： &amp;quot; + output.outputFile
+                    }
+                }
+            }
+        }
+
+        debug {
+            buildConfigField(&amp;quot;boolean&amp;quot;, &amp;quot;LOG_DEBUG&amp;quot;, &amp;quot;true&amp;quot;)
+            minifyEnabled false
+
+        }
+
+    }
+
+	//多个渠道设置
+    productFlavors {
+        // 友盟多渠道打包
+        qq {}
+        oppo {}
+        vivo {}
+        xiaomi {}
+        meizu {}
+        lenovo {}
+        smartisan {}
+        wandoujia{}
+        _360 {}
+        sogou {}
+        huawei {}
+    }
+
+	//批量动态替换名字
+    productFlavors.all { flavor -&amp;gt;
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最后命令行执行 ./gradlew assembleRelease 即可&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>关于Andorid混淆</title>
