@@ -21,7 +21,7 @@
     <item>
       <title>Android</title>
       <link>https://guixiaoyuan.github.io/tags/android/</link>
-      <pubDate>Mon, 08 Oct 2018 00:00:00 UTC</pubDate>
+      <pubDate>Tue, 23 Oct 2018 00:00:00 UTC</pubDate>
       <author>Xiaoyuan Gui</author>
       <guid>https://guixiaoyuan.github.io/tags/android/</guid>
       <description></description>
@@ -64,6 +64,15 @@
     </item>
     
     <item>
+      <title>Oom</title>
+      <link>https://guixiaoyuan.github.io/tags/oom/</link>
+      <pubDate>Tue, 23 Oct 2018 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/oom/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>View</title>
       <link>https://guixiaoyuan.github.io/tags/view/</link>
       <pubDate>Wed, 02 Mar 2016 00:00:00 UTC</pubDate>
@@ -100,6 +109,15 @@
     </item>
     
     <item>
+      <title>内存泄漏</title>
+      <link>https://guixiaoyuan.github.io/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/</link>
+      <pubDate>Tue, 23 Oct 2018 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>博客</title>
       <link>https://guixiaoyuan.github.io/tags/%E5%8D%9A%E5%AE%A2/</link>
       <pubDate>Sun, 20 Aug 2017 00:30:03 CST</pubDate>
@@ -123,24 +141,6 @@
       <pubDate>Sun, 20 Aug 2017 00:30:03 CST</pubDate>
       <author>Xiaoyuan Gui</author>
       <guid>https://guixiaoyuan.github.io/tags/%E5%AD%A6%E4%B9%A0/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>工作经验</title>
-      <link>https://guixiaoyuan.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%BB%8F%E9%AA%8C/</link>
-      <pubDate>Thu, 23 Aug 2018 00:30:03 CST</pubDate>
-      <author>Xiaoyuan Gui</author>
-      <guid>https://guixiaoyuan.github.io/tags/%E5%B7%A5%E4%BD%9C%E7%BB%8F%E9%AA%8C/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>思考</title>
-      <link>https://guixiaoyuan.github.io/tags/%E6%80%9D%E8%80%83/</link>
-      <pubDate>Fri, 09 Feb 2018 00:00:00 UTC</pubDate>
-      <author>Xiaoyuan Gui</author>
-      <guid>https://guixiaoyuan.github.io/tags/%E6%80%9D%E8%80%83/</guid>
       <description></description>
     </item>
     

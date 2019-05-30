@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="Android, OOM, 内存泄漏, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="关于Andorid内存泄漏 : 桂圆的第二人生"/>
+<meta property="og:site_name" content="xiaoyuan gui blog"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="https://guixiaoyuan.github.io/post/2018-10-23/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-10-23"/>
+<meta property="article:modified_time" content="2018-10-23"/>
+
+
+
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="OOM">
+<meta property="article:tag" content="内存泄漏">
+
+
+
+
+
+    <base href="https://guixiaoyuan.github.io/">
+    <title> 关于Andorid内存泄漏 - 桂圆的第二人生 </title>
+    <link rel="canonical" href="https://guixiaoyuan.github.io/post/2018-10-23/">
+    
+
+    
+<link rel="stylesheet" href="/static/css/style.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?a79535ca63291dc820e3ecefa615aad1";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+</head>
+
+<body lang="en" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+	<nav id="nav">
+	<div id="title"><a href="/">桂圆的第二人生</a></div>
+    <div><a href=mailto: 463316523@qq.com target="_blank" class="mailto"> </span> <span class="icon-mail"></span>463316523@qq.com</a></div>
+	</nav>
+    <nav id="nav">
+    	        <ul id="mainnav">
+            <li>
+                <a href="/蘅芜/">
+                <span class="icon"> <i aria-hidden="true" class="icon-pencil"></i></span>
+                <span> 蘅芜 </span>
+            </a>
+            </li>
+            <li>
+            <a href="/潇湘/">
+                <span class="icon"> <i aria-hidden="true" class="icon-quill"></i></span>
+                <span> 潇湘 </span>
+            </a>
+            </li>
+            <li>
+            <a href="/观叹/">
+                <span class="icon"> <i aria-hidden="true" class="icon-leaf"></i></span>
+                <span> 观叹 </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="icon-heart"></i></span>
+                <span> 关于 </span>
+            </a>
+            </li>
+        </ul>
+
+    </nav>
+    <nav id="nav">
+       	        <ul id="social">
+            
+            <li id="share">
+                <span class="title"> 友链 </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      
+                      <li> <a href="http://spf13.com" target="_blank" title="spf13 is Steve Francis" class="facebook">spf13</a> </li>
+                      <li> <a href="http://libaier.net" target="_blank" title="Libaier" class="rss">Libaier</a> </li>
+                      <li> <a href="http://www.androidweekly.cn/" target="_blank" title="Android开发周报" class="douban">Android 开发周报</a></li>
+                      <li> <a href="http://androidblog.cn/" target="_blank" title="Android blog周刊" class="yangzhe">Android blog周刊</a></li>
+                      <li> <a href="http://http://tianwang.gift/" target="_blank" title="Tian" class="tian">Tian</a></li>
+                    </ul>
+                <span class="icon icon-bubbles"> </span> <span class="subcount"></span> </div>
+            </li>
+    
+            <li id="follow">
+                <span class="title"> 驻留地 </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        
+
+                        <li> <a href="http://weibo.com/2975201462/profile?topnav=1&wvr=6" target="_blank" title="微博" class="weibo">微博</a> </li>
+                        <li> <a href="https://www.zhihu.com/people/gui-xiao-yuan" target="_blank" title="知乎" class="zhihu">知乎</a> </li>
+                        <li> <a href="https://github.com/guixiaoyuan" target="_blank" title="GitHub" class="github">GitHub</a> </li>                         
+                        
+                    </ul>
+                <span class="icon icon-rocket"> </span> <span class="subcount"></span> </div>
+            </li>
+
+        </ul>
+
+	</nav>
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" >关于Andorid内存泄漏</h1>
+  
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          <h4 id="date"> Tue Oct 23, 2018 </h4>
+          
+        </section>
+        
+        <ul id="tags">
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/android">Android</a> </li>
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/oom">OOM</a> </li>
+          
+            <li> <a href="https://guixiaoyuan.github.io//tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F">内存泄漏</a> </li>
+          
+        </ul>
+    </div>
+
+
+</aside>
+
+<meta itemprop="wordCount" content="164">
+<meta itemprop="datePublished" content="2018-10-23">
+<meta itemprop="url" content="https://guixiaoyuan.github.io/post/2018-10-23/">
+
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           <p>OOM问题会经常困扰我们，尤其是维护一个用户数量基数大的app的时候，我们的bug统计数据前几位，基本上会被OOM问题给占据。通过结果反向分析问题，和在写代码的时候注意内存泄漏从而避免OOM，本质上都需要对内存泄漏的产生，以及几种常见的方式需要有着清晰的认识。</p>
+
+<p></p>
+
+<h1 id="内存泄漏的根本原因">内存泄漏的根本原因：</h1>
+
+<p>长生命周期的对象 持有 短生命周期 的强/弱引用，导致本应该被回收的短生命周期的对象无法被正常回收。</p>
+
+<h1 id="内存泄漏的情况">内存泄漏的情况</h1>
+
+<h2 id="单例模式">单例模式</h2>
+
+<p>由于单例模式的静态特性，使得它的生命周期和我们的应用一样长，一不小心让单例无限制的持有 Activity 的强引用就会导致内存泄漏。</p>
+
+<p>解决办法</p>
+
+<pre><code>public class BaseApplication extends Application{
+    private static ApplicationContext sContext;
+    @Override
+    public void onCreate(){
+        super.onCreate();
+        //全局的context，不再使用activity的引用
+        sContext = getApplicationContext();
+    }
+    public static Context getApplicationContext(){
+        return sContext;
+    }
+}
+</code></pre>
+
+<h2 id="handler使用">handler使用</h2>
+
+<p>由于 Handler 属于 TLS（Thread Local Storage）变量，导致它的生命周期和 Activity 不一致。因此通过 Handler 来更新 UI 一般很难保证跟 View 或者 Activity 的生命周期一致，故很容易导致无法正确释放。</p>
+
+<p>解决办法</p>
+
+<ul>
+<li>弱引用+ 静态内部类。首先第一个关键是，静态内部类是不会引用外部对象的，但是我们依然需要外部的activity 处理事务，所以我们持有activity的弱引用来处理消息。弱引用的好处是当gc运行的时候，也就是退出的时候，不管内存够不够，都会回收弱引用。</li>
+<li>activity结束的时候，移除message。为啥这个也可以防止内存泄漏？回到handler内存泄漏的本质，其实就是messagequeue 里面的message持有了handler的句柄，handler持有了外部的activity，所以message如果一直在，这个activity就没有办法回收，导致内存泄漏。移除了message，源头解决了内存泄漏。</li>
+</ul>
+
+<pre><code>    public class MyHandler extends android.os.Handler {
+
+        private WeakReference&lt;Activity&gt; mContextWeakReference;
+
+        public MyHandler(Activity activity) {
+            mContextWeakReference = new WeakReference&lt;&gt;(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Activity activity = mContextWeakReference.get();
+            if (activity == null || activity.isDestroyed() || activity.isFinishing()) {
+                removeCallbacksAndMessages(null);
+            }
+            //todo logic things
+        }
+    }
+</code></pre>
+
+<h3 id="引生一下-远离非静态内部类和匿名类">引生一下：（远离非静态内部类和匿名类）</h3>
+
+<p>非静态内部类为什么会容易引发内存泄漏？</p>
+
+<p>当我们反编译app的时候，会看到非静态内部类的格式为 外部类$非静态内部类</p>
+
+<p>也就说说非静态内部类会持有外部类的引用，称为隐式引用。这个非静态内部类如果没有在外部类回收的时候被回收，也就是会持有外部类的引用导致外部类无法被回收。也就是内存泄漏。</p>
+
+<p>非静态内部类中创建了一个静态实例，导致该实例的生命周期和应用ClassLoader级别，又因为该静态实例又会隐式持有其外部类的引用，所以导致其外部类无法正常释放，出现了泄漏问题。</p>
+
+<h2 id="使用系统服务引发的内存泄漏">使用系统服务引发的内存泄漏</h2>
+
+<p>遇到的内存泄漏问题是因为在 Activity 中调用了 getPackageManger 方法获取 PMS ，该方法调用的是 ContextImpl，此时如果ContextImpl 中 PackageManager 为 null，就会创建一个 PackageManger（ContextImpl 会将自己传递进去，而 ContextImpl 的 mOuterContext 为 Activity），创建 PackageManager 实际上会创建 PackageManagerService（简称 PMS），而 PMS 的构造方法中会创建一个 UserManger（UserManger 初始化之后会持有 ContextImpl 的强引用）。
+只要 PMS 的 class 未被销毁，那么就会一直引用着 UserManger ，进而导致其关联到的资源无法正常释放。</p>
+
+<p>解决办法</p>
+
+<p>将getPackageManager()改为 getApplication()#getPackageManager() 。这样引用的就是 Application Context，而非 Activity 了。</p>
+
+<h2 id="webview-引发的内存泄漏">WebView 引发的内存泄漏</h2>
+
+<h2 id="对象的注册与反注册没有成对出现">对象的注册与反注册没有成对出现</h2>
+
+<p>譬如注册广播接收器、注册观察者（典型的譬如数据库的监听）等。</p>
+
+<h2 id="创建与关闭没有成对出现造成的泄露">创建与关闭没有成对出现造成的泄露</h2>
+
+<p>譬如Cursor资源必须手动关闭，WebView必须手动销毁，流等对象必须手动关闭等。</p>
+        </article>
+  </div>
+</section>
+
+<aside id=comments>
+    <div><h2> Comments </h2></div>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "guixiaoyuan" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+<footer>
+  <div>
+    <p>
+    &copy; 2017 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Xiaoyuan Gui.</span></span>
+        Powered by <a href="http://hugo.spf13.com">Hugo</a>.
+        Theme by <a href="http://spf13.com">Steve Francia</a>.
+    </p>
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i &lt; all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</body>
