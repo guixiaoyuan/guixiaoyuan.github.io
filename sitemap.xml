@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://guixiaoyuan.github.io/post/2019-06-22/</loc>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/post/2018-10-23/</loc>
     <lastmod>2018-10-23T00:00:00+00:00</lastmod>
   </url>
@@ -109,7 +114,13 @@
   
   <url>
     <loc>https://guixiaoyuan.github.io/tags/java/</loc>
-    <lastmod>2017-09-21T00:00:00+00:00</lastmod>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guixiaoyuan.github.io/tags/leetcode/</loc>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -210,7 +221,7 @@
   
   <url>
     <loc>https://guixiaoyuan.github.io/</loc>
-    <lastmod>2018-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -222,7 +233,7 @@
   
   <url>
     <loc>https://guixiaoyuan.github.io/%E6%BD%87%E6%B9%98/</loc>
-    <lastmod>2018-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

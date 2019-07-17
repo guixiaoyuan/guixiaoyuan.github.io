@@ -7,7 +7,68 @@
     <language>en-us</language>
     <author>Xiaoyuan Gui</author>
     <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
-    <updated>Tue, 23 Oct 2018 00:00:00 UTC</updated>
+    <updated>Sat, 22 Jun 2019 00:00:00 UTC</updated>
+    
+    <item>
+      <title>LeetCode First Problem</title>
+      <link>https://guixiaoyuan.github.io/post/2019-06-22/</link>
+      <pubDate>Sat, 22 Jun 2019 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2019-06-22/</guid>
+      <description>&lt;p&gt;程序 = 算法+数据结构&lt;/p&gt;
+
+&lt;p&gt;编程语言虽然该学，但是学习计算机算法和理论更重要，因为计算机语言和开发平台日新月异，但万变不离其宗的是那些算法和理论，例如数据结构、算法、编译原理、计算机体系结构、关系型数据库原理等等。这些基础课程是“内功”，新的语言、技术、标准是“外功”。整天赶时髦的人最后只懂得招式，没有功力，是不可能成为高手的。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;first-problem&#34;&gt;First problem&lt;/h1&gt;
+
+&lt;h3 id=&#34;explain&#34;&gt;explain:&lt;/h3&gt;
+
+&lt;p&gt;Given nums = [2, 7, 11, 15], target = 9,&lt;/p&gt;
+
+&lt;p&gt;return [0, 1].&lt;/p&gt;
+
+&lt;p&gt;Because nums[0] + nums[1] = 2 + 7 = 9,&lt;/p&gt;
+
+&lt;h3 id=&#34;solution&#34;&gt;solution:&lt;/h3&gt;
+
+&lt;p&gt;我第一个想法是两层循环，去寻找这两个数。&lt;/p&gt;
+
+&lt;p&gt;所以解决方案出来：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public int[] twoSum(int[] nums, int target) {
+    for (int i = 0; i &amp;lt; nums.length; i++) {
+        for (int j = i + 1; j &amp;lt; nums.length; j++) {
+            if (nums[j] == target - nums[i]) {
+                return new int[] { i, j };
+            }
+        }
+    }
+    throw new IllegalArgumentException(&amp;quot;No two sum solution&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是这个解决方案，如果考虑到时间复杂度的话，n^2，空间复杂度 1&lt;/p&gt;
+
+&lt;p&gt;leetCode 给了一个降低时间复杂度的方案，如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public int[] twoSum(int[] nums, int target) {
+    Map&amp;lt;Integer, Integer&amp;gt; map = new HashMap&amp;lt;&amp;gt;();
+    for (int i = 0; i &amp;lt; nums.length; i++) {
+        int complement = target - nums[i];
+        if (map.containsKey(complement)) {
+            return new int[] { map.get(complement), i };
+        }
+        map.put(nums[i], i);
+    }
+    throw new IllegalArgumentException(&amp;quot;No two sum solution&amp;quot;);
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;时间复杂度，n 空间复杂度 1&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>关于Andorid内存泄漏</title>
