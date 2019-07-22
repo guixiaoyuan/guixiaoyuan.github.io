@@ -71,6 +71,49 @@
     </item>
     
     <item>
+      <title>mac连接android手机问题</title>
+      <link>https://guixiaoyuan.github.io/post/2018-11-08/</link>
+      <pubDate>Thu, 08 Nov 2018 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2018-11-08/</guid>
+      <description>&lt;p&gt;笔者的mac，装了&lt;a href=&#34;https://www.android.com/filetransfer/&#34;&gt;Android File Transter&lt;/a&gt;
+可以连接国内的华为，小米，魅族之类的手机。&lt;/p&gt;
+
+&lt;p&gt;但是比如vivo系列，oppo系列就无法连接。这个时候需要手动添加设备id，识别。
+&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;打开终端，输入：system_profiler SPUSBDataType，查看Mac系统所有USB设备信息，找到相应的厂商Vender ID。&lt;/p&gt;
+
+&lt;p&gt;查到相应连有Android手机设备的usb hub，找到相应的厂商Vender ID,比如，我的测试机oppo语手机就无法连接adb，查到的相应信息片段如下：&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;OPPO:
+
+              Product ID: 0x2773
+              Vendor ID: 0x22d9
+              Version: ff.ff
+              Serial Number: K7RK5DDANVAYE6Y5
+              Speed: Up to 480 Mb/sec
+              Manufacturer: MediaTek
+              Location ID: 0x14610000 / 46
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;终端进入/Users/user/.android，应该有一个adb_usb.ini文件，如果没有就创建，然后将上面的Vender ID “0x22d9”单独一行加入到该文件，然后退出。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重启adb server进程。&lt;/p&gt;
+
+&lt;p&gt;adb kill-server
+adb start-server&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ps&#34;&gt;PS：&lt;/h3&gt;
+
+&lt;p&gt;有时 adb devices不能显示连接设备，需要拔掉数据线，多插几次，并且退出终端，然后重新打开，再输入命令就能发现连接的设备，再无法连接请重启电脑，等待系统初始化环境设置。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>关于Andorid内存泄漏</title>
       <link>https://guixiaoyuan.github.io/post/2018-10-23/</link>
       <pubDate>Tue, 23 Oct 2018 00:00:00 UTC</pubDate>
@@ -1852,68 +1895,6 @@ onTouchEvent事件中处理它。
 &lt;p&gt;如果你在代码中，直接引用Thread, 在ui线程中，就是ui thread。在子线程中，就是子线程 thread。&lt;/p&gt;
 
 &lt;p&gt;直接new Thread().start().这个就是创建一个子线程，ui线程和子线程会一起执行。如果对同一个资源进行操作，所以才会产生死锁现象&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Android 如何根据XML文件读取drawable资源</title>
-      <link>https://guixiaoyuan.github.io/post/2016-01-06/</link>
-      <pubDate>Wed, 06 Jan 2016 00:00:00 UTC</pubDate>
-      <author>Xiaoyuan Gui</author>
-      <guid>https://guixiaoyuan.github.io/post/2016-01-06/</guid>
-      <description>&lt;p&gt;问题提出的背景：自己在做launcher的新功能，摇一摇切换壁纸的时候。需要动态获取壁纸的id，然后填充到布局上。这样在后期维护的时候，就不需要过多的改动代码，直接增减图片，以及在配置文件（wallpapers.xml）中修改就好了。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;第一种做法&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在XML文件中声明资源ID数组&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;array name = &amp;quot;drawer_icon_normal&amp;quot;&amp;gt;
-        &amp;lt;item&amp;gt;@drawable/ic_drawer_home_normal&amp;lt;/item&amp;gt;
-        &amp;lt;item&amp;gt;@drawable/ic_drawer_follow_normal&amp;lt;/item&amp;gt;
-        &amp;lt;item&amp;gt;@drawable/ic_drawer_collect_normal&amp;lt;/item&amp;gt;
-        &amp;lt;item&amp;gt;@drawable/ic_drawer_register_normal&amp;lt;/item&amp;gt;
-        &amp;lt;item&amp;gt;@drawable/ic_drawer_explore_normal&amp;lt;/item&amp;gt;
-    &amp;lt;/array&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后要获取ID需要通过TypedArray来获取。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;TypedArray array = context.getResources().obtainTypedArray(R.array.drawer_icon_normal);
-    for (int i = 0; i &amp;lt; array.length(); i++) {
-        drawables_normal[i] = array.getResourceId(i$, R.drawable.default_profile);//后面的drawable文件是找不到资源加载的的文件
-    }
-    array.recycle();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;第二种做法&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;xml文件中声明有所不同。没有了@drawable，所以在获取图片名字的时候，直接是名字，而不是路径。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;array name = &amp;quot;drawer_icon_normal&amp;quot;&amp;gt;
-        &amp;lt;item&amp;gt;ic_drawer_home_normal&amp;lt;/item&amp;gt;
-        &amp;lt;item&amp;gt;ic_drawer_follow_normal&amp;lt;/item&amp;gt;
-        &amp;lt;item&amp;gt;ic_drawer_collect_normal&amp;lt;/item&amp;gt;
-        &amp;lt;item&amp;gt;ic_drawer_register_normal&amp;lt;/item&amp;gt;
-        &amp;lt;item&amp;gt;ic_drawer_explore_normal&amp;lt;/item&amp;gt;
-    &amp;lt;/array&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后获取Id的方法如下：&lt;/p&gt;
-
-&lt;p&gt;获取图片的文件名的方法：&lt;/p&gt;
-
-&lt;p&gt;String[] extras = getContext.getResources().getStringArray(R.array.drawer_icon_normal);&lt;/p&gt;
-
-&lt;p&gt;packageName的获取方法：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;getContext.getResources().getResourcesPackageName(R.array.drawer_icon_normal);
-int resId =  getContext().getResources().getIdentifier(&amp;quot;图片的文件名&amp;quot;，&amp;quot;文件的类型，如drawable&amp;quot;，&amp;quot;文件的packageName  一般为getContext.getPackageName()&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

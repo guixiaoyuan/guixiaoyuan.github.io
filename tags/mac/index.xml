@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Mac on 桂圆的第二人生 </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://guixiaoyuan.github.io/tags/mac/</link>
+    <language>en-us</language>
+    <author>Xiaoyuan Gui</author>
+    <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
+    <updated>Thu, 08 Nov 2018 00:00:00 UTC</updated>
+    
+    <item>
+      <title>mac连接android手机问题</title>
+      <link>https://guixiaoyuan.github.io/post/2018-11-08/</link>
+      <pubDate>Thu, 08 Nov 2018 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2018-11-08/</guid>
+      <description>&lt;p&gt;笔者的mac，装了&lt;a href=&#34;https://www.android.com/filetransfer/&#34;&gt;Android File Transter&lt;/a&gt;
+可以连接国内的华为，小米，魅族之类的手机。&lt;/p&gt;
+
+&lt;p&gt;但是比如vivo系列，oppo系列就无法连接。这个时候需要手动添加设备id，识别。
+&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;打开终端，输入：system_profiler SPUSBDataType，查看Mac系统所有USB设备信息，找到相应的厂商Vender ID。&lt;/p&gt;
+
+&lt;p&gt;查到相应连有Android手机设备的usb hub，找到相应的厂商Vender ID,比如，我的测试机oppo语手机就无法连接adb，查到的相应信息片段如下：&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;OPPO:
+
+              Product ID: 0x2773
+              Vendor ID: 0x22d9
+              Version: ff.ff
+              Serial Number: K7RK5DDANVAYE6Y5
+              Speed: Up to 480 Mb/sec
+              Manufacturer: MediaTek
+              Location ID: 0x14610000 / 46
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;终端进入/Users/user/.android，应该有一个adb_usb.ini文件，如果没有就创建，然后将上面的Vender ID “0x22d9”单独一行加入到该文件，然后退出。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重启adb server进程。&lt;/p&gt;
+
+&lt;p&gt;adb kill-server
+adb start-server&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ps&#34;&gt;PS：&lt;/h3&gt;
+
+&lt;p&gt;有时 adb devices不能显示连接设备，需要拔掉数据线，多插几次，并且退出终端，然后重新打开，再输入命令就能发现连接的设备，再无法连接请重启电脑，等待系统初始化环境设置。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
