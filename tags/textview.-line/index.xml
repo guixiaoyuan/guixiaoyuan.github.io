@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Textview. Line on 桂圆的第二人生 </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://guixiaoyuan.github.io/tags/textview.-line/</link>
+    <language>en-us</language>
+    <author>Xiaoyuan Gui</author>
+    <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
+    <updated>Fri, 02 Jun 2017 00:00:00 UTC</updated>
+    
+    <item>
+      <title>TextView开发小细节</title>
+      <link>https://guixiaoyuan.github.io/post/2017-06-02/</link>
+      <pubDate>Fri, 02 Jun 2017 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2017-06-02/</guid>
+      <description>&lt;p&gt;TexitView 在开发中是一个非常常见的控件，但是在限制字符串行数的时候，存在两个属性都可以控制单行。为啥google采用两种实现方式呢？&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Android 的TextView 里面有两个属性 singLine 和maxLines 。 从字面意思来理解，这两个都是限制Text的行数。那么singleLine=&amp;ldquo;true&amp;rdquo; 和maxLine=&amp;ldquo;1&amp;rdquo; 都是限制为一行，有什么区别呢？&lt;/p&gt;
+
+&lt;p&gt;先看看Google Document 的解释：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;android:maxLinesMakes the TextView be at most this many lines tall. 
+android:singleLineConstrains the text to a single horizontally scrolling line instead of letting it wrap onto multiple lines, 
+and advances focus instead of inserting a newline when you press the enter key. 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看出，maxLines 是在限制高度， singleLine 是强制不让换行。具体效果有什么区别呢？ 从高度来讲是一样的，两者肯定都显示一行，但从换行的位置来讲就有区别了，maxLines并不会改变其换行的位置，而singleLine则会。从这个角度讲，singleLine的显示会好一些，因为如果超过一行singleLine会在一行内显示，后面加上&amp;rdquo;&amp;hellip;&amp;rdquo; ,而maxlines=&amp;ldquo;1&amp;rdquo; 则不会，它依然会在原来换行的位置换行，所以有时候一行不满，但是却不显示剩下的部分。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
