@@ -1445,7 +1445,7 @@ onTouchEvent事件中处理它。
 
 &lt;p&gt;默认情况下，我们的动作都是从最外层传递到最里层的，一般简单的来说，也就是从ViewGroup到view。而实际处理，则是从最里层开始，一层层到外层。也就是view到ViewGroup。&lt;/p&gt;
 
-&lt;p&gt;首先会调用最外层的dispatchTouchEvent()，其实这个方法就是分发事件，返回false，表示此层不接受这个动作，继续发送给下层。如果是true，则不传递动作给下面了。如果是viewGroup的话，接下来会调用onInterceptTouchEvent(),此方法用于拦截动作，返回true，拦截成功，false，不拦截。&lt;/p&gt;
+&lt;p&gt;首先会调用最外层的dispatchTouchEvent()，其实这个方法就是分发事件，返回false，表示此层不接受这个动作，返回给activity的onTouchEvent()处理。如果是true，则不传递动作给下面了，也不会传递给actiivty，就到此为止了。如果是viewGroup的话，接下来会调用onInterceptTouchEvent(),此方法用于拦截动作，返回true，拦截成功，false，不拦截。&lt;/p&gt;
 
 &lt;p&gt;动作传递到下一层之后，会继续重复上面的动作。直到传递到最里层，也就是上图的叶子节点。这个时候，会调用onTouchEvent事件。如果返回false，表示继续往上传递，会调用上层的onTouchEvent()的事件，重复一直到执行到最上层。也就是上图的根节点。&lt;/p&gt;
 
