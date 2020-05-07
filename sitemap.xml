@@ -73,6 +73,11 @@
   </url>
   
   <url>
+    <loc>https://guixiaoyuan.github.io/post/2016-02-26/</loc>
+    <lastmod>2016-02-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://guixiaoyuan.github.io/post/2016-02-23/</loc>
     <lastmod>2016-02-23T00:00:00+00:00</lastmod>
   </url>
@@ -108,6 +113,12 @@
   <url>
     <loc>https://guixiaoyuan.github.io/tags/drawable%E8%B5%84%E6%BA%90/</loc>
     <lastmod>2016-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guixiaoyuan.github.io/tags/fragment/</loc>
+    <lastmod>2016-02-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

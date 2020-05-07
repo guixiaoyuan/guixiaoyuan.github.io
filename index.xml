@@ -1803,98 +1803,38 @@ onTouchEvent事件中处理它。
     </item>
     
     <item>
-      <title>浅谈Android ANR</title>
-      <link>https://guixiaoyuan.github.io/post/2016-02-23/</link>
-      <pubDate>Tue, 23 Feb 2016 00:00:00 UTC</pubDate>
+      <title>Fragment开发小细节</title>
+      <link>https://guixiaoyuan.github.io/post/2016-02-26/</link>
+      <pubDate>Fri, 26 Feb 2016 00:00:00 UTC</pubDate>
       <author>Xiaoyuan Gui</author>
-      <guid>https://guixiaoyuan.github.io/post/2016-02-23/</guid>
-      <description>&lt;p&gt;使用android手机的时候，有时候会出现卡屏，无法动弹的情况。本文就简单的说明一下程序无响应的问题。
-&lt;/p&gt;
+      <guid>https://guixiaoyuan.github.io/post/2016-02-26/</guid>
+      <description>&lt;p&gt;在实际开发中，我们会发现，fragment会与外界有一些信息传递，例如activity传递信息进入fragment。&lt;/p&gt;
 
-&lt;h1 id=&#34;浅谈android-anr&#34;&gt;浅谈Android ANR&lt;/h1&gt;
+&lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;ANR is Application Not Responding.&lt;/p&gt;
+&lt;p&gt;我们可以简单的用Intent，直接传递信息，获取信息。但是这种方式是以牺牲fragment的封装性为代价的。也就是说这个fragment不可以被再次复用。
+或者有人会问，我们重新定义一个满足我们需求的构造函数，这样不就可以既不牺牲fragment的封装性，又满足我们的需求了么？的却，这个方法看上去能满足要求，但是实际开发中我们会发现一些问题。当我们的fragment重新被创建的时候，系统会自动调用无参的构造函数，所以这种方法也是失败的。&lt;/p&gt;
 
-&lt;h2 id=&#34;现象&#34;&gt;现象&lt;/h2&gt;
+&lt;p&gt;这个时候，谷歌为我们定义了一个机制。argument。&lt;/p&gt;
 
-&lt;p&gt;用户感知为程序长时间无法响应，Android系统自身会弹出一个对话框，告知需要等待，还是杀死程序。&lt;/p&gt;
+&lt;p&gt;当我们想传递一些值进入到fragment中，我们可以先在fragment中定义一个方法newInstance（）&lt;/p&gt;
 
-&lt;h2 id=&#34;原因&#34;&gt;原因&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;public static MyFragment newInstance(int someInt) {
+    MyFragment myFragment = new MyFragment();
 
-&lt;p&gt;应用程序主线程在超时时间内对输入事件没有处理完毕，或者对特定操作没有执行完毕，就会出现ANR。&lt;/p&gt;
+    Bundle args = new Bundle();
+    args.putInt(&amp;quot;someInt&amp;quot;, someInt);
+    myFragment.setArguments(args);
 
-&lt;h2 id=&#34;anr的类型&#34;&gt;ANR的类型&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;KeyDispatchTimeout(5 seconds)
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;主要类型，系统会显示对话框提示。按键或触摸事件在特定时间内无响应。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;  可能出现的两种情况
-  1，用户输入事件处理超时；2，窗口获取焦点超时
+    return myFragment;
+}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;BroadcastTimeout(10 seconds)  &lt;/p&gt;
+&lt;p&gt;然后我们可以在fragment中的create（）调用&lt;/p&gt;
 
-&lt;p&gt;系统仅仅输出log而已，BroadcastReceiver在特定时间内无法处理完成&lt;/p&gt;&lt;/li&gt;
+&lt;p&gt;getArguments().getInt(&amp;ldquo;someInt&amp;rdquo;, 0);得到自己想要的值。&lt;/p&gt;
 
-&lt;li&gt;&lt;p&gt;ServiceTimeout(20 seconds)  &lt;/p&gt;
-
-&lt;p&gt;系统仅仅输出log而已，Service在特定时间内无法处理完成&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ContentProvider相关操作执行超时，（I/O耗时操作）,在UI线程中进行网络操作，也容易引发ANR。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;解决套路&#34;&gt;解决套路&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;第一种情况&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;Log提示语：Reason:Input dispatching timed out(Waiting because the focused window has not finished processing the input events that were previously delivered to it);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;产生这种ANR的前提是要有输入事件，如果用户没有触发任何输入事件，即使是主线程阻塞，也不会产生ANR，因为InputDispatcer没有分发事件给应用程序，所以不会检测处理超时，以及报告ANR。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;第二种情况：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;Log提示语：Reason:Input dispatching timed out(Waiting because no window has focus but there is a focused application that may eventually add a window when it finishes starting up); 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如何避免KeyDispatchTimeout&lt;/p&gt;
-
-&lt;p&gt;1：UI线程尽量只做跟UI相关的工作&lt;/p&gt;
-
-&lt;p&gt;2：耗时的工作（比如数据库操作，I/O，连接网络或者别的有可能阻碍UI线程的操作）把它放入单独的线程处理&lt;/p&gt;
-
-&lt;p&gt;3：尽量用Handler来处理UIthread和别的thread之间的交互&lt;/p&gt;
-
-&lt;h2 id=&#34;android的一些耗时操作&#34;&gt;android的一些耗时操作&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;数据库操作。数据库操作尽量采用异步方法做处理。&lt;/li&gt;
-&lt;li&gt;初始化的数据和控件太多。&lt;/li&gt;
-&lt;li&gt;频繁的创建线程或者其他大对象。&lt;/li&gt;
-&lt;li&gt;加载过大数据和图片&lt;/li&gt;
-&lt;li&gt;对大树据排序和循环操作&lt;/li&gt;
-&lt;li&gt;过多的广播和滥用广播&lt;/li&gt;
-&lt;li&gt;大树据的传递和共享&lt;/li&gt;
-&lt;li&gt;访问网络&lt;/li&gt;
-&lt;li&gt;避免在循环中创建对象。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;最后一点小体会&#34;&gt;最后一点小体会&lt;/h2&gt;
-
-&lt;p&gt;Thread.sleep();表示主动休眠，无论你设置为多长时间，只要你在睡眠的时候，不进行其他的操作，都不会造成anr。&lt;/p&gt;
-
-&lt;p&gt;如果你在代码中，直接引用Thread, 在ui线程中，就是ui thread。在子线程中，就是子线程 thread。&lt;/p&gt;
-
-&lt;p&gt;直接new Thread().start().这个就是创建一个子线程，ui线程和子线程会一起执行。如果对同一个资源进行操作，所以才会产生死锁现象&lt;/p&gt;</description>
+&lt;p&gt;这个在后面某次面试的时候，被面试者问到了，为啥fragment传参数要argument？其实追本溯源，其实答案非常简单。我们在写代码的时候，需要知道怎么做，更需要知道为啥这么做。&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Fragment on 桂圆的第二人生 </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://guixiaoyuan.github.io/tags/fragment/</link>
+    <language>en-us</language>
+    <author>Xiaoyuan Gui</author>
+    <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
+    <updated>Fri, 26 Feb 2016 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Fragment开发小细节</title>
+      <link>https://guixiaoyuan.github.io/post/2016-02-26/</link>
+      <pubDate>Fri, 26 Feb 2016 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2016-02-26/</guid>
+      <description>&lt;p&gt;在实际开发中，我们会发现，fragment会与外界有一些信息传递，例如activity传递信息进入fragment。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;我们可以简单的用Intent，直接传递信息，获取信息。但是这种方式是以牺牲fragment的封装性为代价的。也就是说这个fragment不可以被再次复用。
+或者有人会问，我们重新定义一个满足我们需求的构造函数，这样不就可以既不牺牲fragment的封装性，又满足我们的需求了么？的却，这个方法看上去能满足要求，但是实际开发中我们会发现一些问题。当我们的fragment重新被创建的时候，系统会自动调用无参的构造函数，所以这种方法也是失败的。&lt;/p&gt;
+
+&lt;p&gt;这个时候，谷歌为我们定义了一个机制。argument。&lt;/p&gt;
+
+&lt;p&gt;当我们想传递一些值进入到fragment中，我们可以先在fragment中定义一个方法newInstance（）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public static MyFragment newInstance(int someInt) {
+    MyFragment myFragment = new MyFragment();
+
+    Bundle args = new Bundle();
+    args.putInt(&amp;quot;someInt&amp;quot;, someInt);
+    myFragment.setArguments(args);
+
+    return myFragment;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后我们可以在fragment中的create（）调用&lt;/p&gt;
+
+&lt;p&gt;getArguments().getInt(&amp;ldquo;someInt&amp;rdquo;, 0);得到自己想要的值。&lt;/p&gt;
+
+&lt;p&gt;这个在后面某次面试的时候，被面试者问到了，为啥fragment传参数要argument？其实追本溯源，其实答案非常简单。我们在写代码的时候，需要知道怎么做，更需要知道为啥这么做。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
