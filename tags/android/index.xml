@@ -275,6 +275,44 @@ adb start-server&lt;/p&gt;&lt;/li&gt;
     </item>
     
     <item>
+      <title>刘海屏适配问题</title>
+      <link>https://guixiaoyuan.github.io/post/2018-09-212/</link>
+      <pubDate>Wed, 12 Sep 2018 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2018-09-212/</guid>
+      <description>&lt;p&gt;各大手机机型层出不穷，适配问题也是方法尽出。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;刘海屏适配问题&#34;&gt;刘海屏适配问题&lt;/h3&gt;
+
+&lt;p&gt;谷歌andorid p 9.0 官方支持了刘海屏。
+国内android O 8.0，各大手机厂商，自己实现了支持刘海屏幕的接口和方案。&lt;/p&gt;
+
+&lt;p&gt;如果要适配的话，可以自己去各大手机厂商的官网去查找。主流的有华为，vivo，oppo。&lt;/p&gt;
+
+&lt;p&gt;这个方案网上一查一大堆。适配起来也非常的简单。简单的做个总结。有兴趣可以看看&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/guixiaoyuan/AndroidUtils/blob/master/NotchScreenUtils.java&#34;&gt;NotchScreenUtils&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;今天主要 就聊聊自己在项目中的一个坑的经历。在做小说阅读的时候。阅读界面需要做沉浸式。这个时候需要适配刘海屏幕。&lt;/p&gt;
+
+&lt;p&gt;但是出现一个情况是，我们按照刘海屏幕适配的时候，会出现一个问题，全屏展示的时候，就是默认不会出现刘海屏幕，也就是安全模式。不全屏幕的时候，刘海屏幕出现，但是无法做沉浸式的状态，也就是有刘海屏的时候，会有状态栏里面的时间，网络等信息。&lt;/p&gt;
+
+&lt;p&gt;无法做到像qq阅读那样，阅读界面沉浸式，并且刘海可以定制化做一些操作。&lt;/p&gt;
+
+&lt;p&gt;这个问题困扰了非常久的时间，后来才发现原因。&lt;/p&gt;
+
+&lt;p&gt;1、你设置这些，没什么用，vivo最新版本都只是覆盖到android 8.0，而你的设置要在9.0才有效&lt;/p&gt;
+
+&lt;p&gt;2、由于android机型的分散，考虑到屏幕兼容问题，未来刘海屏手机可能会优先默认在安全区显示，手动设置开启全屏，这取决于9.0的覆盖率&lt;/p&gt;
+
+&lt;p&gt;vivo 默认显示安全区域。你需要手动去设置，在显示与亮度里面，找到第三方应用显示比例，你的app，全屏显示即可。&lt;/p&gt;
+
+&lt;p&gt;qq阅读这种app，是需要联系vivo厂商，给应用设置白名单。才可更改默认显示模式。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>关于Andorid混淆</title>
       <link>https://guixiaoyuan.github.io/post/2018-07-08/</link>
       <pubDate>Sun, 08 Jul 2018 00:00:00 UTC</pubDate>
