@@ -682,6 +682,19 @@ adb start-server&lt;/p&gt;&lt;/li&gt;
 
 &lt;p&gt;android有几大布局，一般你用什么？为什么？（估计是从性能优化的角度说，但是还没搞懂后续他会问什么，因为没回答出来他满意的答案，他也没继续问）&lt;/p&gt;
 
+&lt;pre&gt;&lt;code&gt;RelativeLayout 会调用两次onMeasure()方法，
+groupView自己是不会测量的，交给子view测量。
+RelativeLayout会根据2次排列的结果对子View各做一次measure，一次横，一次竖。
+这是为什么呢？首先RelativeLayout中子View的排列方式是基于彼此的依赖关系，
+而这个依赖关系可能和Xml布局中View的顺序不同，
+在确定每个子View的位置的时候，需要先给所有的子View排序一下。
+又因为RelativeLayout允许ViewB在横向上依赖ViewA，ViewA在纵向上依赖B。
+所以需要横向纵向分别进行一次排序测量。
+
+LinearLayout 如果不使用weight属性，只会调用一次，使用weight属性，调用两次
+
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;RxJava使用，Rxjava的好处。对Rxjava的理解。RxJava 操作符，比如map 和 flatMap 的区别，更高阶的东西需要去掌握;&lt;/p&gt;
 
 &lt;p&gt;Touch事件传递。比如说我现在有个两层布局，里面有一个button，点击button的时候，说说调用的方法。&lt;/p&gt;
