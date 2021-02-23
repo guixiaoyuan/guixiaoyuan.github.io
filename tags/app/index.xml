@@ -11,17 +11,10 @@
     
     <item>
       <title>android冷启动小研究</title>
-<<<<<<< HEAD
       <link>https://guixiaoyuan.github.io/post/2020-06-02/</link>
       <pubDate>Tue, 02 Jun 2020 00:00:00 UTC</pubDate>
       <author>Xiaoyuan Gui</author>
       <guid>https://guixiaoyuan.github.io/post/2020-06-02/</guid>
-=======
-      <link>https://guixiaoyuan.github.io/post/2018-11-08/</link>
-      <pubDate>Tue, 02 Jun 2020 00:00:00 UTC</pubDate>
-      <author>Xiaoyuan Gui</author>
-      <guid>https://guixiaoyuan.github.io/post/2018-11-08/</guid>
->>>>>>> ae597b3bc1c793d5a6f498a7653425393bbc5392
       <description>&lt;p&gt;随着项目版本的迭代，App的性能问题会逐渐暴露出来，而好的用户体验与性能表现紧密相关。来看一下Google官方文档&lt;a href=&#34;https://developer.android.com/topic/performance/launch-time.html&#34;&gt;《Launch-Time Performance》&lt;/a&gt; 对应用启动优化的概述；
 &lt;/p&gt;
 
