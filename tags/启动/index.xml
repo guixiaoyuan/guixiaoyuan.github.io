@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>启动 on 桂圆的第二人生 </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://guixiaoyuan.github.io/tags/%E5%90%AF%E5%8A%A8/</link>
+    <language>en-us</language>
+    <author>Xiaoyuan Gui</author>
+    <copyright>Copyright (c) 2017, Xiaoyuan Gui; all rights reserved.</copyright>
+    <updated>Tue, 02 Jun 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>android冷启动小研究</title>
+      <link>https://guixiaoyuan.github.io/post/2018-11-08/</link>
+      <pubDate>Tue, 02 Jun 2020 00:00:00 UTC</pubDate>
+      <author>Xiaoyuan Gui</author>
+      <guid>https://guixiaoyuan.github.io/post/2018-11-08/</guid>
+      <description>&lt;p&gt;随着项目版本的迭代，App的性能问题会逐渐暴露出来，而好的用户体验与性能表现紧密相关。来看一下Google官方文档&lt;a href=&#34;https://developer.android.com/topic/performance/launch-time.html&#34;&gt;《Launch-Time Performance》&lt;/a&gt; 对应用启动优化的概述；
+&lt;/p&gt;
+
+&lt;h2 id=&#34;冷启动&#34;&gt;冷启动&lt;/h2&gt;
+
+&lt;p&gt;当后台不存在该应用的任何进程或者服务时，用户点击icon图标启动，我们称之为冷启动。&lt;/p&gt;
+
+&lt;h2 id=&#34;热启动&#34;&gt;热启动&lt;/h2&gt;
+
+&lt;p&gt;当后台存在该应用的进程或者服务时，用户点击icon图标启动，我们称之为热启动。
+一般是用户按了home键回到桌面，或者返回键没有杀进程，或者app本身做了进程重启的机制。&lt;/p&gt;
+
+&lt;h2 id=&#34;温启动&#34;&gt;温启动&lt;/h2&gt;
+
+&lt;p&gt;当启动应用时，后台已有该应用的进程，但是启动的入口Activity被干掉了，比如按了back键，应用虽然退出了，但是该应用的进程是依然会保留在后台。&lt;/p&gt;
+
+&lt;h2 id=&#34;启动组成时间&#34;&gt;启动组成时间&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;冷启动时间： application初始化时间+欢迎页停留时间&lt;/li&gt;
+&lt;li&gt;热启动时间： 欢迎页停留时间&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;用户体验时间：冷启动时间+主界面展示时间&lt;/p&gt;
+
+&lt;p&gt;冷启动执行三个任务：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;加载启动app&lt;/li&gt;
+&lt;li&gt;app启动之后立即展示一个空白的window&lt;/li&gt;
+&lt;li&gt;创建app的进程&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;点击icon之后，会启动一个ipc，ipc会通知process.start,这个时候会启动activityThread,activityThread是每一个单独进程的入口，相当于入口类,里面有个main方法,里面会消息处理，进行bindApplication,通过反射调用applicaiton，进行application生命周期，后面进行activity的生命周期
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;启动后时间节点&#34;&gt;启动后时间节点&lt;/h3&gt;
+
+&lt;p&gt;Application的构造器方法——&amp;gt;attachBaseContext()——&amp;gt;onCreate()——&amp;gt;Activity的构造方法——&amp;gt;onCreate()——&amp;gt;配置主题中背景等属性——&amp;gt;onStart()——&amp;gt;onResume()——&amp;gt;测量、布局、绘制显示在界面上。&lt;/p&gt;
+
+&lt;h3 id=&#34;application-初始化&#34;&gt;Application 初始化&lt;/h3&gt;
+
+&lt;p&gt;application启动经历两个方法。结束后才会出现lanucher界面。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;attachBaseContext ---&amp;gt; onCreate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;attachBaseContext 一般不会重写。只有在multiDex，或者一些特殊业务，比如插件化，导致在此方法中执行操作。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+
+&lt;p&gt;作为一个用户使用的普通应用，进程级别的操作，我们没有办法进行优化。可以优化的是application,activity的创建和回调。&lt;/p&gt;
+
+&lt;p&gt;google官方给了优化方向：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;利用提前展示出来的Window，快速展示出来一个界面，给用户快速反馈的体验；（这种方法不能提升启动速率，只能使交互好一点）&lt;/li&gt;
+&lt;li&gt;避免在启动时做密集沉重的初始化（Heavy app initialization）；&lt;/li&gt;
+&lt;li&gt;定位问题：避免I/O操作、反序列化、网络操作、布局嵌套等。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;启动加速之avoid-heavy-app-initialization&#34;&gt;启动加速之Avoid Heavy App Initialization&lt;/h4&gt;
+
+&lt;p&gt;在Application以及首屏Activity中我们主要做了：
+MultiDex以及Tinker的初始化，最先执行；Application中主要做了各种三方组件的初始化；&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;项目中除听云之外其余所有三方组件都抢占先机，在Application主线程初始化。这样的初始化方式肯定是过重的:
+考虑异步初始化三方组件，不阻塞主线程；&lt;/li&gt;
+&lt;li&gt;延迟部分三方组件的初始化；实际上我们粗粒度的把所有三方组件都放到异步任务里，可能会出现WorkThread中尚未初始化完毕但MainThread中已经使用的错误，因此这种情况建议延迟到使用前再去初始化；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;项目修改：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;将友盟、Bugly、听云、GrowingIO、BlockCanary等组件放在WorkThread中初始化；
+延迟地图定位、ImageLoader、自有统计等组件的初始化：地图及自有统计延迟4秒，此时应用已经打开；而ImageLoader
+因为调用关系不能异步以及过久延迟，初始化从Application延迟到SplashActivity；而EventBus因为再Activity中使用所以必须在Application中初始化。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;启动加速之diagnosing-the-problem&#34;&gt;启动加速之Diagnosing The Problem&lt;/h4&gt;
+
+&lt;p&gt;分析到部分耗时操作发生在主线程，那我们把耗时操作都改到子线程是不是就万事大吉了？非也！！&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;卡顿不能都靠异步来解决，错误的使用工程线程不仅不能改善卡顿，反而可能加剧卡顿。是否需要开启工作线程需要根据具体的性能瓶颈根源具体分析，对症下药，不可一概而论；&lt;/li&gt;
+&lt;li&gt;而如何开启线程同样也有学问：Thread、ThreadPoolExecutor、AsyncTask、HandlerThread、IntentService等都各有利弊；例如通常情况下ThreadPoolExecutor比Thread更加高效、优势明显，但是特定场景下单个时间点的表现Thread会比ThreadPoolExecutor好：同样的创建对象，ThreadPoolExecutor的开销明显比Thread大；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;正确的开启线程也不能包治百病，例如执行网络请求会创建线程池，而在Application中正确的创建线程池势必也会降低启动速度；因此延迟操作也必不可少。&lt;/p&gt;
+
+&lt;p&gt;通过对traceview的详细跟踪以及代码的详细比对，我发现卡顿发生在：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;部分数据库及IO的操作发生在首屏Activity主线程；&lt;/li&gt;
+&lt;li&gt;Application中创建了线程池；&lt;/li&gt;
+&lt;li&gt;首屏Activity网络请求密集；&lt;/li&gt;
+&lt;li&gt;工作线程使用未设置优先级；&lt;/li&gt;
+&lt;li&gt;信息未缓存，重复获取同样信息；&lt;/li&gt;
+&lt;li&gt;流程问题：例如闪屏图每次下载，当次使用；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以及其它细节问题：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;执行无用老代码；&lt;/li&gt;
+&lt;li&gt;执行开发阶段使用的代码；&lt;/li&gt;
+&lt;li&gt;执行重复逻辑；&lt;/li&gt;
+&lt;li&gt;调用三方SDK里或者Demo里的多余代码；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;启动app的launcher activity，计算时间。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;adb shell am start -W com.leku.hmsq/com.leku.hmq.activity.WelcomeActivity
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;返回值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.leku.hmsq/com.leku.hmq.activity.WelcomeActivity }
+Status: ok
+Activity: com.leku.hmsq/com.leku.hmq.activity.HomeTabActivity
+
+
+ThisTime: 629
+TotalTime: 738
+WaitTime: 755
+Complete
+
+
+ThisTime:最后一个启动的Activity的启动耗时；
+TotalTime:自己的所有Activity的启动耗时；
+WaitTime: ActivityManagerService启动App的Activity时的总时间（包括当前Activity的onPause()和自己Activity的启动）。
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;查看每一个activity的显示时间&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;adb logcat | grep &amp;quot;ActivityManager&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
