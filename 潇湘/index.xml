@@ -1503,6 +1503,8 @@ and advances focus instead of inserting a newline when you press the enter key.
 
 &lt;h1 id=&#34;android-触摸机制&#34;&gt;Android 触摸机制&lt;/h1&gt;
 
+&lt;p&gt;责任链模式&lt;/p&gt;
+
 &lt;p&gt;在理解事件处理机制之前，我们先理解一下，view和viewGroup的异同。&lt;/p&gt;
 
 &lt;h3 id=&#34;view&#34;&gt;view&lt;/h3&gt;
@@ -1579,7 +1581,7 @@ viewGroup是根，其他的都是附加在viewGroup上的
     
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;它是window里面的一个抽象方法。传递touch screen event。而我们知道activity里面有一个phoneWindow,所以追踪phoneWindow.superDispatchTouchEvent()&lt;/p&gt;
+&lt;p&gt;它是window里面的一个抽象方法。传递touch screen event。而我们知道activity里面有一个phoneWindow,（phoneWindow是window的唯一实现类）所以追踪phoneWindow.superDispatchTouchEvent()&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt; @Override
     public boolean superDispatchTouchEvent(MotionEvent event) {
